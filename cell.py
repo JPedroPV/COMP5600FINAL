@@ -1,5 +1,6 @@
 class Cell:
   val: int
+  domain: list
   arcDomain: list
   assigned: bool
 
@@ -8,9 +9,11 @@ class Cell:
     self.val = int(val)
     if self.val == 0:
       self.arcDomain = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      self.domain = [1,2,3,4,5,6,7,8,9]
       self.assigned = False
     else:
       self.arcDomain = [self.val]
+      self.domain = [self.val]
       self.assigned = True
 
   #Get Cell Value
@@ -21,16 +24,21 @@ class Cell:
   def getArcDomain(self):
     return self.arcDomain
   
+  def getDomain(self):
+    return self.domain
+  
   #Set Cell Value
   def setVal(self, val):
     self.val = val
     self.arcDomain = [val]
+    self.domain = [val]
     self.assigned = True
 
   #Reset Cell Domain
   def resetCell(self):
     self.val = 0
     self.arcDomain = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    self.domain = [1,2,3,4,5,6,7,8,9]
     self.assigned = False
 
   #Enforce Arc Consistency

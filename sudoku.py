@@ -100,6 +100,19 @@ class Sudoku:
         if len(self.board[i][j].getArcDomain()) > len(self.board[mostConstrained[0]][mostConstrained[1]].getArcDomain()) and not self.board[i][j].assigned:
           mostConstrained = (i, j)
     return mostConstrained
+
+  def mostConstrained(self):
+  #find first unassigned cell
+    for i in range(9):
+        for j in range(9):
+            if not self.board[i][j].assigned:
+                mostConstrained = (i, j)
+                break
+    for i in range(9):
+      for j in range(9):
+        if len(self.board[i][j].getDomain()) > len(self.board[mostConstrained[0]][mostConstrained[1]].getDomain()) and not self.board[i][j].assigned:
+          mostConstrained = (i, j)
+    return mostConstrained
   
   #ARC
   def allAssigned(self):
@@ -169,7 +182,12 @@ class Sudoku:
     print("Time taken:", end-start)
 
   def checkMCV(self):
-    start = time.time()
-    mostX, mostY = self.mostConstrained()
-    end = time.time()
-    print("Time taken:", end-start)
+    while(not self.allAssigned()):
+      mostX, mostY = mostConstrained()
+      pops = self.board[mostX][mostY].getDomain()
+      for i in pops:
+        self.board[mostX][mostY].setVal(i)
+        recu = self.checkMCV()
+        if recu == True:
+          break
+    return True
