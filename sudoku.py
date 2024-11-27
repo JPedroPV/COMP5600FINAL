@@ -207,6 +207,7 @@ class Sudoku:
           break
         else:
           self.board[mostX][mostY].resetVal()
+          self.fixDomain(mostX,mostY)
     return True
   
   def timeMCV(self):
