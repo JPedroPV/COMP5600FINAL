@@ -28,7 +28,7 @@ class Cell:
     self.assigned = True
 
   #Reset Cell Domain
-  def resetArcDomain(self):
+  def resetCell(self):
     self.val = 0
     self.arcDomain = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     self.assigned = False

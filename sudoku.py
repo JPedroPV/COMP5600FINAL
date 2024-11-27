@@ -87,7 +87,8 @@ class Sudoku:
         possible.append(i)
     return possible
   
-  def mostConstrained(self):
+  #ARC
+  def mostConstrainedArc(self):
     #find first unassigned cell
     for i in range(9):
         for j in range(9):
@@ -100,6 +101,7 @@ class Sudoku:
           mostConstrained = (i, j)
     return mostConstrained
   
+  #ARC
   def allAssigned(self):
     for i in range(9):
       for j in range(9):
@@ -107,10 +109,10 @@ class Sudoku:
           return False
     return True
   
+  #ARC
   def enforceArc(self, queue):
     while len(queue) > 0:
       row, col = queue.pop(0)
-      val = self.board[row][col].val
       for i in range(9):
         if i != col:
           if self.board[row][i].enforceArc(self.board[row][col]):
@@ -127,6 +129,7 @@ class Sudoku:
               if len(self.board[(row//3)*3+i][(col//3)*3+j].getArcDomain()) == 1:
                 queue.append(((row//3)*3+i, (col//3)*3+j))
 
+  #ARC MASTER
   def checkArc(self):
     start = time.time()
 
@@ -141,7 +144,7 @@ class Sudoku:
 
     while(not self.allAssigned()):
         #find most constrained cell
-        mcvI, mcvJ = self.mostConstrained()
+        mcvI, mcvJ = self.mostConstrainedArc()
         print("Most Constrained Cell: ", mcvI, mcvJ)
         print("Domain: ", self.board[mcvI][mcvJ].getArcDomain())
         print()
@@ -151,11 +154,6 @@ class Sudoku:
     
         #enforce arc consistency
         self.enforceArc([(mcvI, mcvJ)])
-    
-    #find most constrained cell
-    mcvI, mcJ = self.mostConstrained()
-    print("Most Constrained Cell: ", mcvI, mcJ)
-    print("Domain: ", self.board[mcvI][mcJ].getArcDomain())
 
     end = time.time()
     print("Time taken:", end-start)
