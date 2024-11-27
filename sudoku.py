@@ -88,10 +88,16 @@ class Sudoku:
     return possible
   
   def mostConstrained(self):
-    mostConstrained = (0, 0)
+    #find first unassigned cell
+    for i in range(9):
+        for j in range(9):
+            if not self.board[i][j].assigned:
+                mostConstrained = (i, j)
+                break
+
     for i in range(9):
       for j in range(9):
-        if len(self.board[i][j].getArcDomain()) > len(self.board[mostConstrained[0]][mostConstrained[1]].getArcDomain()):
+        if len(self.board[i][j].getArcDomain()) > len(self.board[mostConstrained[0]][mostConstrained[1]].getArcDomain()) and not self.board[i][j].assigned:
           mostConstrained = (i, j)
     return mostConstrained
   
@@ -134,6 +140,18 @@ class Sudoku:
 
     self.enforceArc(queue)
 
+    while(not self.allAssigned()):
+        #find most constrained cell
+        mcvI, mcvJ = self.mostConstrained()
+        print("Most Constrained Cell: ", mcvI, mcvJ)
+        print("Domain: ", self.board[mcvI][mcvJ].getArcDomain())
+        print()
+    
+        #assign value to most constrained cell
+        self.board[mcvI][mcvJ].setVal(self.board[mcvI][mcvJ].getArcDomain()[0])
+    
+        #enforce arc consistency
+        self.enforceArc([(mcvI, mcvJ)])
     
     #find most constrained cell
     mcvI, mcJ = self.mostConstrained()
