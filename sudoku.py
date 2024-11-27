@@ -192,11 +192,21 @@ class Sudoku:
 
   def checkMCV(self):
     while(not self.allAssigned()):
-      mostX, mostY = mostConstrained()
+      mostX, mostY = self.mostConstrained()
       pops = self.board[mostX][mostY].getDomain()
+      if len(pops) == 0:
+        return False
       for i in pops:
         self.board[mostX][mostY].setVal(i)
         recu = self.checkMCV()
         if recu == True:
           break
+        else:
+          self.board[mostX][mostY].resetVal(i)
     return True
+  
+  def timeMCV(self):
+    start = time.time()
+    self.checkMCV()
+    end = time.time()
+    print("Time taken:", end-start)
