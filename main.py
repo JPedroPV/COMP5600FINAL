@@ -59,7 +59,21 @@ for i in range(len(data)):
 # print(help.possNum(3, 4))
 # print()
 
-win = boards[3]
-win.printBoard()
-win.checkArc()
-win.printBoard()
+# win = boards[3]
+# win.printBoard()
+# win.checkArc()
+# win.printBoard()
+# win.printSolution()
+# win.printCorrect()
+
+for i in boards:
+  print("Before Arc Consistency")
+  i.printBoard()
+  i.checkArc()
+  print("After Arc Consistency")
+  i.printBoard()
+  print("Solution")
+  i.printSolution()
+  i.printCorrect()
+  print()
+  print()
