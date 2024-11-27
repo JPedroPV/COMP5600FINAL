@@ -95,13 +95,13 @@ class Sudoku:
           return False
     return True
 
-  #Check a cell's possible values given current state of board
-  def possNum(self, row, col):
+  #Fixes the domain of a cell
+  def fixDomain(self, row, col):
     possible = []
     for i in range(1, 10):
       if self.checkCellVal(row, col, i):
         possible.append(i)
-    return possible
+    self.board[row][col].domain = possible
   
   #ARC
   def mostConstrainedArc(self):
