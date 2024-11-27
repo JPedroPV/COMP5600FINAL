@@ -41,6 +41,10 @@ class Cell:
     self.domain = [1,2,3,4,5,6,7,8,9]
     self.assigned = False
 
+  def removeDomain(self, val):
+    if val in self.domain:
+      self.domain.remove(val)
+
   #Enforce Arc Consistency
   #Returns True if a value is removed from the domain
   def enforceArc(self, cell):

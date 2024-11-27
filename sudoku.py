@@ -16,6 +16,14 @@ class Sudoku:
     self.board = np.reshape(initBoard, (9,9))
     self.solution = np.reshape(solved, (9,9))
 
+    # initialize domain for each cell
+    for i in range(9):
+        for j in range(9):
+            if self.board[i][j].val == 0:
+                for k in range(1, 10):
+                    if not self.checkCellVal(i, j, k):
+                        self.board[i][j].removeDomain(k)
+
   #Print Sudoku Board
   def printBoard(self):
     for i in range(9):
@@ -49,29 +57,25 @@ class Sudoku:
     if correct:
         print("Correct Solution")
     else:
-        print("Incorrect Solution")
-
-  #Update Sudoku Cell
-  def updateCell(self, row, col, val):
-    self.board[row][col] = Cell(val)
+        print("Incorrect Solution <------------------------------------")
 
   #Check if Sudoku Cell is Valid
   def checkCell(self, row, col):
     val = self.board[row][col].val
     if self.board[row][col].val == 0:
-      print("Empty Cell")
+      #print("Empty Cell")
       return False
     for i in range(9):
       if self.board[row][i].val == val and i != col:
-        print("Row Violation")
+        #print("Row Violation")
         return False
       if self.board[i][col].val == val and i != row:
-        print("Column Violation")
+        #print("Column Violation")
         return False
     for i in range(3):
       for j in range(3):
         if self.board[row//3*3+i][col//3*3+j].val == val and i != row and j != col:
-          print("Subcell Violation")
+          #print("Subcell Violation")
           return False
     return True
 
@@ -79,15 +83,15 @@ class Sudoku:
   def checkCellVal(self, row, col, val):
     for i in range(9):
       if self.board[row][i].val == val and i != col:
-        print("Row Violation for value: " + str(val))
+        #print("Row Violation for value: " + str(val))
         return False
       if self.board[i][col].val == val and i != row:
-        print("Column Violation for value: " + str(val))
+        #print("Column Violation for value: " + str(val))
         return False
     for i in range(3):
       for j in range(3):
         if self.board[row//3*3+i][col//3*3+j].val == val and i != row and j != col:
-          print("Subcell Violation for value: " + str(val))
+          #print("Subcell Violation for value: " + str(val))
           return False
     return True
 
