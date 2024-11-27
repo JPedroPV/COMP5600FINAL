@@ -206,7 +206,7 @@ class Sudoku:
         if recu == True:
           break
         else:
-          self.board[mostX][mostY].resetVal(i)
+          self.board[mostX][mostY].resetVal()
     return True
   
   def timeMCV(self):
