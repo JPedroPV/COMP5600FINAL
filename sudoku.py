@@ -39,6 +39,18 @@ class Sudoku:
         print(self.solution[i][j], end=" ")
       print()
 
+  def printCorrect(self):
+    correct = True
+    for i in range(9):
+      for j in range(9):
+        if self.board[i][j].val != self.solution[i][j].val:
+          print("Incorrect Cell: ", i, j)
+          correct = False
+    if correct:
+        print("Correct Solution")
+    else:
+        print("Incorrect Solution")
+
   #Update Sudoku Cell
   def updateCell(self, row, col, val):
     self.board[row][col] = Cell(val)
@@ -146,9 +158,6 @@ class Sudoku:
     while(not self.allAssigned()):
         #find most constrained cell
         mcvI, mcvJ = self.mostConstrainedArc()
-        print("Most Constrained Cell: ", mcvI, mcvJ)
-        print("Domain: ", self.board[mcvI][mcvJ].getArcDomain())
-        print()
     
         #assign value to most constrained cell
         self.board[mcvI][mcvJ].setVal(self.board[mcvI][mcvJ].getArcDomain()[0])
@@ -173,3 +182,4 @@ class Sudoku:
     start = time.time()
     end = time.time()
     print("Time taken:", end-start)
+
