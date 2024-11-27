@@ -69,7 +69,7 @@ for i in range(len(data)):
 for i in boards:
   print("Before Arc Consistency")
   i.printBoard()
-  i.checkArc()
+  i.checkMCV()
   print("After Arc Consistency")
   i.printBoard()
   print("Solution")

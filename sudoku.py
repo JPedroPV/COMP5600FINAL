@@ -102,6 +102,18 @@ class Sudoku:
       if self.checkCellVal(row, col, i):
         possible.append(i)
     self.board[row][col].domain = possible
+
+    #Fix neighbors of specified cell
+  def fixNeighbors(self, row, col):
+    for i in range(9):
+        if i != col:
+            self.fixDomain(row, i)
+        if i != row:
+            self.fixDomain(i, col)
+    for i in range(3):
+        for j in range(3):
+            if (row//3)*3+i != row and (col//3)*3+j != col:
+                self.fixDomain((row//3)*3+i, (col//3)*3+j)
   
   #ARC
   def mostConstrainedArc(self):
@@ -195,19 +207,30 @@ class Sudoku:
     print("Time taken:", end-start)
 
   def checkMCV(self):
-    while(not self.allAssigned()):
-      mostX, mostY = self.mostConstrained()
-      pops = self.board[mostX][mostY].getDomain()
-      if len(pops) == 0:
-        return False
-      for i in pops:
-        self.board[mostX][mostY].setVal(i)
-        recu = self.checkMCV()
-        if recu == True:
+    #while(not self.allAssigned()):
+    mostX, mostY = self.mostConstrained()
+    pops = self.board[mostX][mostY].getDomain()
+    print(pops, mostX, mostY)
+    returnVal = False
+    if len(pops) == 0:
+      print("EMPTY DOMAIN")
+      return returnVal
+    for i in range(len(pops)):
+      print(pops[i])
+      self.board[mostX][mostY].setVal(pops[i])
+      self.fixNeighbors(mostX,mostY)
+      self.printBoard()
+      recu = self.checkMCV()
+      if recu == True:
+        print("RECURSIVE TRUE")
+        if self.allAssigned():
+          returnVal = True
           break
-        else:
-          self.board[mostX][mostY].resetVal()
-          self.fixDomain(mostX,mostY)
+        break
+      else:
+        self.board[mostX][mostY].resetCell()
+        self.fixDomain(mostX,mostY)
+        print("RECURSIVE FALSE")
     return True
   
   def timeMCV(self):
