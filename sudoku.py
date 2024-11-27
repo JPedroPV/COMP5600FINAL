@@ -94,7 +94,6 @@ class Sudoku:
             if not self.board[i][j].assigned:
                 mostConstrained = (i, j)
                 break
-
     for i in range(9):
       for j in range(9):
         if len(self.board[i][j].getArcDomain()) > len(self.board[mostConstrained[0]][mostConstrained[1]].getArcDomain()) and not self.board[i][j].assigned:
@@ -171,7 +170,8 @@ class Sudoku:
     end = time.time()
     print("Time taken:", end-start)
 
-  def checkMCV():
+  def checkMCV(self):
     start = time.time()
+    mostX, mostY = self.mostConstrained()
     end = time.time()
     print("Time taken:", end-start)
