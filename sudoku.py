@@ -16,14 +16,19 @@ class Sudoku:
     self.board = np.reshape(initBoard, (9,9))
     self.solution = np.reshape(solved, (9,9))
 
-    # initialize domain for each cell
+    #initialize neighbors for each cell
     for i in range(9):
         for j in range(9):
-            if self.board[i][j].val == 0:
-                for k in range(1, 10):
-                    if not self.checkCellVal(i, j, k):
-                        self.board[i][j].removeDomain(k)
-
+            self.board[i][j].Neighbors = []
+            for k in range(9):
+                if k != j:
+                    self.board[i][j].addNeighbor(self.board[i][k])
+                if k != i:
+                    self.board[i][j].addNeighbor(self.board[k][j])
+            for k in range(3):
+                for l in range(3):
+                    if (i//3)*3+k != i and (j//3)*3+l != j:
+                        self.board[i][j].addNeighbor(self.board[(i//3)*3+k][(j//3)*3+l])
   #Print Sudoku Board
   def printBoard(self):
     for i in range(9):
@@ -94,26 +99,6 @@ class Sudoku:
           #print("Subcell Violation for value: " + str(val))
           return False
     return True
-
-  #Fixes the domain of a cell
-  def fixDomain(self, row, col):
-    possible = []
-    for i in range(1, 10):
-      if self.checkCellVal(row, col, i):
-        possible.append(i)
-    self.board[row][col].domain = possible
-
-    #Fix neighbors of specified cell
-  def fixNeighbors(self, row, col):
-    for i in range(9):
-        if i != col:
-            self.fixDomain(row, i)
-        if i != row:
-            self.fixDomain(i, col)
-    for i in range(3):
-        for j in range(3):
-            if (row//3)*3+i != row and (col//3)*3+j != col:
-                self.fixDomain((row//3)*3+i, (col//3)*3+j)
   
   #ARC
   def mostConstrainedArc(self):
@@ -209,16 +194,16 @@ class Sudoku:
   def checkMCV(self):
     #while(not self.allAssigned()):
     mostX, mostY = self.mostConstrained()
-    pops = self.board[mostX][mostY].getDomain()
-    print(pops, mostX, mostY)
+    queue = self.board[mostX][mostY].getDomain()
+    print(queue, mostX, mostY) 
     returnVal = False
-    if len(pops) == 0:
+    if len(queue) == 0:
       print("EMPTY DOMAIN")
       return returnVal
-    for i in range(len(pops)):
-      print(pops[i])
-      self.board[mostX][mostY].setVal(pops[i])
-      self.fixNeighbors(mostX,mostY)
+    while len(queue) > 0:
+      val = queue.pop(0)
+      print(val)
+      self.board[mostX][mostY].setVal(val)
       self.printBoard()
       recu = self.checkMCV()
       if recu == True:
@@ -229,7 +214,6 @@ class Sudoku:
         break
       else:
         self.board[mostX][mostY].resetCell()
-        self.fixDomain(mostX,mostY)
         print("RECURSIVE FALSE")
     return True
   
