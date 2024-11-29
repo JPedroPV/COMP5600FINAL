@@ -16,14 +16,19 @@ class Sudoku:
     self.board = np.reshape(initBoard, (9,9))
     self.solution = np.reshape(solved, (9,9))
 
-    # initialize domain for each cell
+    #initialize neighbors for each cell
     for i in range(9):
         for j in range(9):
-            if self.board[i][j].val == 0:
-                for k in range(1, 10):
-                    if not self.checkCellVal(i, j, k):
-                        self.board[i][j].removeDomain(k)
-
+            self.board[i][j].Neighbors = []
+            for k in range(9):
+                if k != j:
+                    self.board[i][j].addNeighbor(self.board[i][k])
+                if k != i:
+                    self.board[i][j].addNeighbor(self.board[k][j])
+            for k in range(3):
+                for l in range(3):
+                    if (i//3)*3+k != i and (j//3)*3+l != j:
+                        self.board[i][j].addNeighbor(self.board[(i//3)*3+k][(j//3)*3+l])
   #Print Sudoku Board
   def printBoard(self):
     for i in range(9):
@@ -217,18 +222,28 @@ class Sudoku:
     if self.allAssigned() and self.checkCorrect():
       return True
     mostX, mostY = self.mostConstrained()
-    q = self.board[mostX][mostY].getDomain()
-    while(len(q) != 0):
-      pop = q.pop(0)
-      self.board[mostX][mostY].setVal(pop)
-      self.fixNeighbors(mostX, mostY)
-      solved = self.checkMCV()
-      if solved:
-        return True
-    return False
-
-
-
+    queue = self.board[mostX][mostY].getDomain()
+    print(queue, mostX, mostY) 
+    returnVal = False
+    if len(queue) == 0:
+      print("EMPTY DOMAIN")
+      return returnVal
+    while len(queue) > 0:
+      val = queue.pop(0)
+      print(val)
+      self.board[mostX][mostY].setVal(val)
+      self.printBoard()
+      recu = self.checkMCV()
+      if recu == True:
+        print("RECURSIVE TRUE")
+        if self.allAssigned():
+          returnVal = True
+          break
+        break
+      else:
+        self.board[mostX][mostY].resetCell()
+        print("RECURSIVE FALSE")
+    return True
   
   def timeMCV(self):
     start = time.time()
