@@ -58,6 +58,13 @@ class Sudoku:
         print("Correct Solution")
     else:
         print("Incorrect Solution <------------------------------------")
+  
+  def checkCorrect(self):
+    for i in range(9):
+      for j in range(9):
+        if self.board[i][j].val != self.solution[i][j].val:
+          return False
+    return True
 
   #Check if Sudoku Cell is Valid
   def checkCell(self, row, col):
@@ -106,13 +113,13 @@ class Sudoku:
     #Fix neighbors of specified cell
   def fixNeighbors(self, row, col):
     for i in range(9):
-        if i != col:
+        if i != col and not self.board[row][i].assigned:
             self.fixDomain(row, i)
-        if i != row:
+        if i != row and not self.board[i][col].assigned:
             self.fixDomain(i, col)
     for i in range(3):
         for j in range(3):
-            if (row//3)*3+i != row and (col//3)*3+j != col:
+            if (row//3)*3+i != row and (col//3)*3+j != col and not self.board[(row//3)*3+i][(col//3)*3+j]:
                 self.fixDomain((row//3)*3+i, (col//3)*3+j)
   
   #ARC
@@ -207,31 +214,21 @@ class Sudoku:
     print("Time taken:", end-start)
 
   def checkMCV(self):
-    #while(not self.allAssigned()):
+    if self.allAssigned() and self.checkCorrect():
+      return True
     mostX, mostY = self.mostConstrained()
-    pops = self.board[mostX][mostY].getDomain()
-    print(pops, mostX, mostY)
-    returnVal = False
-    if len(pops) == 0:
-      print("EMPTY DOMAIN")
-      return returnVal
-    for i in range(len(pops)):
-      print(pops[i])
-      self.board[mostX][mostY].setVal(pops[i])
-      self.fixNeighbors(mostX,mostY)
-      self.printBoard()
-      recu = self.checkMCV()
-      if recu == True:
-        print("RECURSIVE TRUE")
-        if self.allAssigned():
-          returnVal = True
-          break
-        break
-      else:
-        self.board[mostX][mostY].resetCell()
-        self.fixDomain(mostX,mostY)
-        print("RECURSIVE FALSE")
-    return True
+    q = self.board[mostX][mostY].getDomain()
+    while(len(q) != 0):
+      pop = q.pop(0)
+      self.board[mostX][mostY].setVal(pop)
+      self.fixNeighbors(mostX, mostY)
+      solved = self.checkMCV()
+      if solved:
+        return True
+    return False
+
+
+
   
   def timeMCV(self):
     start = time.time()
