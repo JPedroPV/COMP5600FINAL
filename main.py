@@ -9,7 +9,7 @@ solution = []
 with open('sudokuMini.csv', newline='') as csvFile:
   reader = csv.reader(csvFile)
   next(reader)
-  count = 10
+  count = 1
   while count > 0:
     chance = random.random()
     if chance > 0.0:
@@ -67,13 +67,13 @@ for i in range(len(data)):
 # win.printCorrect()
 
 for i in boards:
-  print("Before Arc Consistency")
+  print("Before MCV")
   i.printBoard()
+  #i.board[0][0].printNeightbors()
   i.checkMCV()
-  print("After Arc Consistency")
+  print("After MCV")
   i.printBoard()
   print("Solution")
   i.printSolution()
-  i.printCorrect()
-  print()
+  #i.printCorrect()
   print()

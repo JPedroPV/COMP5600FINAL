@@ -3,7 +3,6 @@ class Cell:
   domain: list
   arcDomain: list
   assigned: bool
-  Neighbors: list
 
   #Initialize Cell Object
   def __init__(self, val):
@@ -14,17 +13,12 @@ class Cell:
       self.assigned = False
     else:
       self.arcDomain = [self.val]
-      self.domain = [self.val]
+      self.domain = []
       self.assigned = True
 
   #Get Cell Value
   def getVal(self):
     return self.val
-  
-  def addNeighbor(self, cell):
-    self.Neighbors.append(cell)
-    if cell.assigned and not self.assigned:
-      self.removeDomain(cell.val)
   
   #Get Cell Domain
   def getArcDomain(self):
@@ -39,16 +33,12 @@ class Cell:
     self.arcDomain = [val]
     self.domain = [val]
     self.assigned = True
-    for i in self.Neighbors:
-      i.removeDomain(val)
 
   #Reset Cell Domain
   def resetCell(self):
     self.val = 0
     self.arcDomain = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     self.domain = [1,2,3,4,5,6,7,8,9]
-    for i in self.Neighbors:
-      self.removeDomain(i.val)
     self.assigned = False
 
   def removeDomain(self, val):
@@ -64,10 +54,6 @@ class Cell:
         self.arcDomain.remove(cell.arcDomain[0])
         removed = True
     return removed
-  
-  def printNeightbors(self):
-    for i in self.Neighbors:
-      print(i.val)
   
   def __str__(self):
     return str(self.val)

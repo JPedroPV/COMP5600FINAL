@@ -1,7 +1,7 @@
 from cell import Cell
-
 import numpy as np
 import time
+import random
 
 class Sudoku:
   board: np.ndarray
@@ -15,20 +15,11 @@ class Sudoku:
     solved = [Cell(x) for x in list(solved)]
     self.board = np.reshape(initBoard, (9,9))
     self.solution = np.reshape(solved, (9,9))
-
-    #initialize neighbors for each cell
     for i in range(9):
-        for j in range(9):
-            self.board[i][j].Neighbors = []
-            for k in range(9):
-                if k != j:
-                    self.board[i][j].addNeighbor(self.board[i][k])
-                if k != i:
-                    self.board[i][j].addNeighbor(self.board[k][j])
-            for k in range(3):
-                for l in range(3):
-                    if (i//3)*3+k != i and (j//3)*3+l != j:
-                        self.board[i][j].addNeighbor(self.board[(i//3)*3+k][(j//3)*3+l])
+      for j in range(9):
+        if not self.board[i][j].assigned:
+          self.fixDomain(i,j)
+
   #Print Sudoku Board
   def printBoard(self):
     for i in range(9):
@@ -124,7 +115,7 @@ class Sudoku:
             self.fixDomain(i, col)
     for i in range(3):
         for j in range(3):
-            if (row//3)*3+i != row and (col//3)*3+j != col and not self.board[(row//3)*3+i][(col//3)*3+j]:
+            if (row//3)*3+i != row and (col//3)*3+j != col and not self.board[(row//3)*3+i][(col//3)*3+j].assigned:
                 self.fixDomain((row//3)*3+i, (col//3)*3+j)
   
   #ARC
@@ -219,31 +210,33 @@ class Sudoku:
     print("Time taken:", end-start)
 
   def checkMCV(self):
-    if self.allAssigned() and self.checkCorrect():
-      return True
+    if self.allAssigned():
+      if self.checkCorrect():
+        return True
+      return False
     mostX, mostY = self.mostConstrained()
     queue = self.board[mostX][mostY].getDomain()
-    print(queue, mostX, mostY) 
-    returnVal = False
+    random.shuffle(queue)
+    print(queue, mostX, mostY)
     if len(queue) == 0:
       print("EMPTY DOMAIN")
-      return returnVal
+      return False
     while len(queue) > 0:
-      val = queue.pop(0)
+      val = queue.pop()
       print(val)
       self.board[mostX][mostY].setVal(val)
+      self.fixNeighbors(mostX, mostY)
       self.printBoard()
       recu = self.checkMCV()
       if recu == True:
         print("RECURSIVE TRUE")
         if self.allAssigned():
-          returnVal = True
-          break
-        break
+          return True
       else:
         self.board[mostX][mostY].resetCell()
+        self.fixDomain(mostX, mostY)
         print("RECURSIVE FALSE")
-    return True
+    return False
   
   def timeMCV(self):
     start = time.time()
