@@ -23,6 +23,7 @@ boards = []
 for i in range(len(data)):
   boards.append(Sudoku(data[i], solution[i]))
 
+# #Prints all Boards and their respective Solutions
 # for i in range(len(data)):
 #   print("Board", i+1)
 #   boards[i].printBoard()
@@ -31,81 +32,62 @@ for i in range(len(data)):
 #   boards[i].printSolution()
 #   print()
 
-# #checkCell() testing
-# help = boards[1]
-# help.printBoard()
-# print(help.checkCell(0, 0))
-# print()
-# help.updateCell(0, 0, 0)
-# help.printBoard()
-# print(help.checkCell(0, 0))
-# print()
-# help.updateCell(0, 0, 1)
-# help.printBoard()
-# print(help.checkCell(0, 0))
-# print()
-# help.updateCell(2, 5, 6)
-# help.printBoard()
-# print(help.checkCell(2, 5))
-# print()
-# help.updateCell(6, 1, 7)
-# help.printBoard()
-# print(help.checkCell(6, 1))
-# print()
-
-# #checkCellVal testing
-# help = boards[1]
-# help.printBoard()
-# print(help.possNum(3, 4))
-# print()
-
-# win = boards[3]
-# win.printBoard()
-# win.checkArc()
-# win.printBoard()
-# win.printSolution()
-# win.printCorrect()
-
+# #Check Arc Consistency
 # for i in boards:
-#   print("Before MCV")
+#   print("Before Arc Consistency")
 #   i.printBoard()
-#   #i.board[0][0].printNeightbors()
-#   #i.checkMCV()
-#   #print("After MCV")
-#   #i.printBoard()
+#   i.checkArc()
+#   print("After Arc Consistency")
+#   i.printBoard()
 #   print("Solution")
 #   i.printSolution()
-#   #i.printCorrect()
+#   print("Is it correct?")
+#   i.printCorrect()
 #   print()
 
-#Testing MCV on custom set to confirm it works as intended on a smaller set
-before = [0,7,0,5,0,8,2,4,3,
-          0,4,0,7,0,9,6,1,8,
-          0,2,0,6,0,4,9,5,7,
-          0,9,0,3,0,2,1,8,6,
-          0,5,0,4,0,1,7,2,9,
-          0,1,0,8,0,7,5,3,4,
-          0,8,0,2,0,6,3,9,1,
-          0,6,0,1,0,3,4,7,5,
-          0,3,0,9,0,5,8,6,2]
+#Check MCV
+for i in boards:
+  print("Before MCV")
+  i.printBoard()
+  i.timeMCV()
+  print("After MCV")
+  i.printBoard()
+  print("Solution")
+  i.printSolution()
+  print("Is it correct?")
+  i.printCorrect()
+  print()
 
-afterr = [6,7,9,5,1,8,2,4,3,
-          5,4,3,7,2,9,6,1,8,
-          8,2,1,6,3,4,9,5,7,
-          7,9,4,3,5,2,1,8,6,
-          3,5,8,4,6,1,7,2,9,
-          2,1,6,8,9,7,5,3,4,
-          4,8,5,2,7,6,3,9,1,
-          9,6,2,1,8,3,4,7,5,
-          1,3,7,9,4,5,8,6,2]
 
-test = Sudoku(before,afterr)
+# #Testing MCV on custom set to confirm it works as intended on a board with
+# #more inital values due to a high running time.
+# before = [0,7,0,5,1,8,2,4,3,
+#           0,4,0,7,2,9,6,1,8,
+#           0,2,0,6,3,4,9,5,7,
+#           0,9,0,3,5,2,1,8,6,
+#           0,5,0,4,6,1,7,2,9,
+#           0,1,0,8,9,7,5,3,4,
+#           0,8,0,2,7,6,3,9,1,
+#           0,6,0,1,8,3,4,7,5,
+#           0,3,0,9,4,5,8,6,2]
 
-print("Before")
-test.printBoard()
-print("MCV")
-test.checkMCV()
-print("After MCV")
-test.printBoard()
-print("Solution")
-test.printCorrect()
+# afterr = [6,7,9,5,1,8,2,4,3,
+#           5,4,3,7,2,9,6,1,8,
+#           8,2,1,6,3,4,9,5,7,
+#           7,9,4,3,5,2,1,8,6,
+#           3,5,8,4,6,1,7,2,9,
+#           2,1,6,8,9,7,5,3,4,
+#           4,8,5,2,7,6,3,9,1,
+#           9,6,2,1,8,3,4,7,5,
+#           1,3,7,9,4,5,8,6,2]
+
+# test = Sudoku(before,afterr)
+
+# print("Before")
+# test.printBoard()
+# print("MCV")
+# test.checkMCV()
+# print("After MCV")
+# test.printBoard()
+# print("Solution")
+# test.printCorrect()
