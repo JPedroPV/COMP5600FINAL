@@ -93,3 +93,5 @@ for i in range(len(data)):
 
 #Runs the sudoku game
 app.runGame(boards)
+
+#Test custom board input

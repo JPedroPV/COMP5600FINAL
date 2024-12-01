@@ -7,7 +7,7 @@ def customBoardIn():
     board = []
     while(len(board) != 81):
         userIn = int(input("Give number 0-9"))
-        if userIn in range(0-10):
+        if userIn in range(0,10):
             board.append(userIn)
         else:
             print("Invalid input")
