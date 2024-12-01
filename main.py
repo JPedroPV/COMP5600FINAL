@@ -98,3 +98,6 @@ app.testMCV(before)
 
 # #Test custom board input
 # app.customBoardIn()
+
+#Test custom board input with predefined list
+#app.customBoardAll(before)

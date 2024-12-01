@@ -1,6 +1,6 @@
 from sudoku import Sudoku
 import random
-
+import matplotlib.pyplot as plt
 
 #Tests the runtime of MCV as values increase
 def testMCV(boardIn):
@@ -13,8 +13,17 @@ def testMCV(boardIn):
         su = Sudoku(cop,original)
         t = su.timeMCV()
         times.append(t)
-    for i in range(len(times)):
+    for i in range(len(times)): 
         print("Removed " + str(i+1) + " numbers, time is: " + str(times[i]))
+    nums = []
+    for i in range(len(times)):
+        nums.append(i + 1)
+    fig, ax = plt.subplots()
+    ax = plt.plot(nums,times)
+    plt.title("Time (ns) taken for execution")
+    plt.xlabel("Number of removed values")
+    plt.ylabel("Time ")
+    plt.show()
 
 
 
@@ -45,7 +54,7 @@ def customBoardAll(userIn):
         board = Sudoku(userIn,userIn)
     else:
         print("Invalid Length")
-    board.checkArc()
+
 
 #Runs Sudoku given a random board from a list of boards
 def runGame(gameBoards):

@@ -259,7 +259,7 @@ class Sudoku:
       return False
     mostX, mostY = self.mostConstrained()
     queue = self.board[mostX][mostY].getDomain()
-    random.shuffle(queue)
+    #random.shuffle(queue)
     print(queue, mostX, mostY)
     if len(queue) == 0:
       print("EMPTY DOMAIN")
