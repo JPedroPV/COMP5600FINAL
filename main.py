@@ -81,15 +81,17 @@ afterr = [6,7,9,5,1,8,2,4,3,
           9,6,2,1,8,3,4,7,5,
           1,3,7,9,4,5,8,6,2]
 
-test = Sudoku(before,afterr)
-print("Before")
-test.printBoard()
-print("MCV")
-test.checkMCV()
-print("After MCV")
-test.printBoard()
-print("Is it correct?")
-test.printCorrect()
+app.testMCV(before)
+
+# test = Sudoku(before,afterr)
+# print("Before")
+# test.printBoard()
+# print("MCV")
+# test.checkMCV()
+# print("After MCV")
+# test.printBoard()
+# print("Is it correct?")
+# test.printCorrect()
 
 # #Runs the sudoku game
 # app.runGame(boards)

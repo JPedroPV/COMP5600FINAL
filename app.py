@@ -4,7 +4,18 @@ import random
 
 #Tests the runtime of MCV as values increase
 def testMCV(boardIn):
-    
+    times = []
+    original = boardIn.copy()
+    for j in range(20):
+        cop = original.copy()
+        for i in range(j):
+            cop[i] = 0
+        su = Sudoku(cop,original)
+        t = su.timeMCV()
+        times.append(t)
+    for i in range(len(times)):
+        print("Removed " + str(i+1) + " numbers, time is: " + str(times[i]))
+
 
 
 #Creates a custom board from user input and checks if
@@ -12,12 +23,22 @@ def testMCV(boardIn):
 def customBoardIn():
     board = []
     while(len(board) != 81):
-        userIn = int(input("Give number 0-9"))
-        if userIn in range(0,10):
-            board.append(userIn)
-        else:
+        try:
+            userIn = int(input("Give number 0-9"))
+            if userIn in range(0,10):
+                board.append(userIn)
+            else:
+                print("Invalid input")
+        except ValueError:
             print("Invalid input")
-    return Sudoku(board,board)
+        # This decides whether to let the while end or reset
+        if(len(board) == 81):
+            #Check if it's a valid board with arc consistency
+            protoBoard = Sudoku(board,board)
+            if(not protoBoard.isValid()):
+                board = []
+                print("Invalid board, start over")
+    return protoBoard
 
 def customBoardAll(userIn):
     if len(userIn) == 81:
