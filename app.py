@@ -1,6 +1,12 @@
 from sudoku import Sudoku
 import random
 
+
+#Tests the runtime of MCV as values increase
+def testMCV(boardIn):
+    
+
+
 #Creates a custom board from user input and checks if
 #there is a viable solution using arc consistency
 def customBoardIn():
@@ -12,6 +18,13 @@ def customBoardIn():
         else:
             print("Invalid input")
     return Sudoku(board,board)
+
+def customBoardAll(userIn):
+    if len(userIn) == 81:
+        board = Sudoku(userIn,userIn)
+    else:
+        print("Invalid Length")
+    board.checkArc()
 
 #Runs Sudoku given a random board from a list of boards
 def runGame(gameBoards):
