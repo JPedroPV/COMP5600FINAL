@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 def testMCV(boardIn):
     times = []
     original = boardIn.copy()
-    for j in range(23):
+    for j in range(24):
         cop = original.copy()
         for i in range(j):
             cop[i] = 0

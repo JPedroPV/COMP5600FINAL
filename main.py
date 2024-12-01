@@ -58,19 +58,18 @@ for i in range(len(data)):
 #   i.printCorrect()
 #   print()
 
-
 # #Testing MCV with a predefined valid board to see how time scales
 # #with the number of missing initial values
-# before = [6,7,9,5,1,8,2,4,3,
-#           5,4,3,7,2,9,6,1,8,
-#           8,2,1,6,3,4,9,5,7,
-#           7,9,4,3,5,2,1,8,6,
-#           3,5,8,4,6,1,7,2,9,
-#           2,1,6,8,9,7,5,3,4,
-#           4,8,5,2,7,6,3,9,1,
-#           9,6,2,1,8,3,4,7,5,
-#           1,3,7,9,4,5,8,6,2]
-# app.testMCV(before)
+before = [6,7,9,5,1,8,2,4,3,
+          5,4,3,7,2,9,6,1,8,
+          8,2,1,6,3,4,9,5,7,
+          7,9,4,3,5,2,1,8,6,
+          3,5,8,4,6,1,7,2,9,
+          2,1,6,8,9,7,5,3,4,
+          4,8,5,2,7,6,3,9,1,
+          9,6,2,1,8,3,4,7,5,
+          1,3,7,9,4,5,8,6,2]
+app.testMCV(before)
 
 # #Runs the sudoku game
 # app.runGame(boards)
@@ -79,13 +78,13 @@ for i in range(len(data)):
 # work = app.customBoardIn()
 
 #Test custom board input with predefined list
-before = [0,7,0,5,0,8,0,4,3,
-          0,4,0,7,0,9,0,1,8,
-          0,2,0,6,0,4,0,5,7,
-          0,9,0,3,0,2,0,8,6,
-          0,5,0,4,0,1,0,2,9,
-          0,1,0,8,0,7,0,3,4,
-          0,8,0,2,0,6,0,9,1,
-          0,6,0,1,0,3,0,7,5,
-          0,3,0,9,0,5,0,6,2]
-work = app.customBoardAll(before)
+# before = [0,7,0,5,0,8,0,4,3,
+#           0,4,0,7,0,9,0,1,8,
+#           0,2,0,6,0,4,0,5,7,
+#           0,9,0,3,0,2,0,8,6,
+#           0,5,0,4,0,1,0,2,9,
+#           0,1,0,8,0,7,0,3,4,
+#           0,8,0,2,0,6,0,9,1,
+#           0,6,0,1,0,3,0,7,5,
+#           0,3,0,9,0,5,0,6,2]
+# work = app.customBoardAll(before)
