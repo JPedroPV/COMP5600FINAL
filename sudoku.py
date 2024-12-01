@@ -64,7 +64,7 @@ class Sudoku:
           return False
     return True
   
-  #TODO implement this with arc consistency.
+  #Checks if a custom board is valid
   def isValid(self):
     if not self.checkArc():
       return False
