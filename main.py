@@ -4,13 +4,13 @@ import app
 import csv
 import random
 
-#Main
+# #Main
 # data = []
 # solution = []
 # with open('sudoku.csv', newline='') as csvFile:
 #   reader = csv.reader(csvFile)
 #   next(reader)
-#   count = 41932
+#   count = 49151
 #   while count > 0:
 #     chance = random.random()
 #     if chance > 0.0:
@@ -93,7 +93,7 @@ import random
 
 #Run tests with arc consistency
 
-#Only run this if there is no arcresults.txt file
+# #Only run this if there is no arcresults.txt file
 # print("Running tests with arc consistency")
 # boardcount = 1
 # file = open("arcresults.txt", "w")
