@@ -17,6 +17,7 @@ class Sudoku:
     self.solution = np.reshape(solved, (9,9))
     for i in range(9):
       for j in range(9):
+        self.board[i][j].add_location(i, j)
         if not self.board[i][j].assigned:
           self.fixDomain(i,j)
 
@@ -143,10 +144,10 @@ class Sudoku:
     neighbors = []
     for i in range(9):
         if i != col and not self.board[row][i].assigned:
-            neighbors.append(self.board[row][col])
+            neighbors.append(self.board[row][i])
             # self.fixDomain(row, i)
         if i != row and not self.board[i][col].assigned:
-            neighbors.append(self.board[row][col])
+            neighbors.append(self.board[i][col])
             # self.fixDomain(i, col)
     for i in range(3):
         for j in range(3):

@@ -8,7 +8,7 @@ class Cell:
 
   already_chosen: list #Checks if the element in the domain has already been assigned (for foward checking)
   assignment: int #Assigns the variable or cell
-  
+  location: tuple 
 
   #Initialize Cell Object
   def __init__(self, val):
@@ -20,12 +20,17 @@ class Cell:
       self.assigned = False
 
       self.already_chosen = []
-      self.assignment
+      self.assignment = None
+      self.location = None
 
     else:
       self.arcDomain = [self.val]
       self.domain = []
       self.assigned = True
+
+      self.already_chosen = []
+      self.assignment = None
+      self.location = None
 
   #Get Cell Value
   def getVal(self):
@@ -63,9 +68,21 @@ class Cell:
         removed = True
     return removed
   
+  def add_location(self, row, col):
+    self.location = (row, col)
+
+  def print_location(self):
+     print("Row: ", self.location[0], " Col: ", self.location[1])
+
+  def clear_already_chosen(self):
+     self.already_chosen.clear()
+
   def assign_fc(self):
+      
       i = 0 
       assignment_not_found = True
+      backtrack_signal = False
+
       while (assignment_not_found):
           if not self.domain:
               raise ValueError("Can't take from an empty domain")
@@ -75,15 +92,23 @@ class Cell:
               self.already_chosen.append(curr_number)
               self.assignment = curr_number
               assignment_not_found = False
-              print("Assignment is: ", self.assignment)
-
+              self.assigned = True
+              self.val = curr_number
+              print(rf"Assignment is {self.assignment} and the current cell is at row: {self.location[0]} and col: {self.location[1]}")
+              backtrack_signal = False
+              return backtrack_signal
+              
           else: 
               assignment_not_found = True
+              self.assigned = False
+              self.val = 0
+            
               i+=1
               if (i == len(self.domain)): 
-                  print("All Variables have been assigned -- nothing assigned")
-                  return None
-            
+                  print(rf"All Variables have been assigned for cell at row: {self.location[0]} and col: {self.location[1]} nothing assigned: ", self.print_location())
+                  backtrack_signal = True
+                  return backtrack_signal
+    
   #String representation, returns value
   def __str__(self):
     return str(self.val)

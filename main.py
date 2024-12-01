@@ -1,4 +1,5 @@
 from sudoku import Sudoku
+from fc_sudoku import run_foward_check
 import app
 import csv
 import random
@@ -6,22 +7,28 @@ import random
 #Main
 data = []
 solution = []
-with open('sudokuMini.csv', newline='') as csvFile:
-  reader = csv.reader(csvFile)
-  next(reader)
-  count = 1
-  while count > 0:
-    chance = random.random()
-    if chance > 0.0:
-      board = next(reader)
-      data.append(board[0])
-      solution.append(board[1])
-      count -= 1
-    else:
-      next(reader)
-boards = []
-for i in range(len(data)):
-  boards.append(Sudoku(data[i], solution[i]))
+# COMP_Project_Sudoku\COMP5600FINAL\sudokuMini.csv
+
+def get_test_boards(file_in):
+  with open(rf"{file_in}", mode= 'r', newline='') as csvFile:
+    reader = csv.reader(csvFile)
+    next(reader)
+    count = 1
+    while count > 0:
+      chance = random.random()
+      if chance > 0.0:
+        board = next(reader)
+        data.append(board[0])
+        solution.append(board[1])
+        count -= 1
+      else:
+        next(reader)
+  boards = []
+  for i in range(len(data)):
+    boards.append(Sudoku(data[i], solution[i]))
+  
+  return boards
+
 
 # #Prints all Boards and their respective Solutions
 # for i in range(len(data)):
@@ -88,4 +95,7 @@ before = [0,7,0,5,0,8,0,4,3,
           0,8,0,2,0,6,0,9,1,
           0,6,0,1,0,3,0,7,5,
           0,3,0,9,0,5,0,6,2]
-work = app.customBoardAll(before)
+# work = boards[0]
+
+
+# run_foward_check(work)
