@@ -1,22 +1,29 @@
 from sudoku import Sudoku
 import random
-
+import matplotlib.pyplot as plt
 
 #Tests the runtime of MCV as values increase
 def testMCV(boardIn):
     times = []
     original = boardIn.copy()
-    for j in range(20):
+    for j in range(23):
         cop = original.copy()
         for i in range(j):
             cop[i] = 0
         su = Sudoku(cop,original)
         t = su.timeMCV()
         times.append(t)
-    for i in range(len(times)):
+    for i in range(len(times)): 
         print("Removed " + str(i+1) + " numbers, time is: " + str(times[i]))
-
-
+    nums = []
+    for i in range(len(times)):
+        nums.append(i + 1)
+    fig, ax = plt.subplots()
+    ax = plt.plot(nums,times)
+    plt.title("Time (ns) taken for execution")
+    plt.xlabel("Number of removed values")
+    plt.ylabel("Time (ns)")
+    plt.show()
 
 #Creates a custom board from user input and checks if
 #there is a viable solution using arc consistency
@@ -77,13 +84,16 @@ def runGame(gameBoards):
             finished = True
             break
         cont = -1
-        while cont not in range(0,3):
-            cont = int(input("Type <0> to continue | <1> to check for errors | <2> to quit and reveal the answer "))
+        while cont not in range(0,4):
+            cont = int(input("Type <0> to continue | <1> to check for errors | <2> get a hint | <3> to quit and reveal the answer "))
             if cont == 0:
                 break
             elif cont == 1:
                 play.printCorrect()
             elif cont == 2:
+                x,y = play.mostConstrained()
+                print("Cell " + str(x+1) + " " + str(y+1) + " has the least possible values.")
+            elif cont == 3:
                 finished = True
                 print("Solution is:")
                 play.printSolution()

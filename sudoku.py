@@ -154,6 +154,11 @@ class Sudoku:
         for j in range(3):
             if (row//3)*3+i != row and (col//3)*3+j != col and not self.board[(row//3)*3+i][(col//3)*3+j].assigned:
                 self.fixDomain((row//3)*3+i, (col//3)*3+j)
+
+  def fixAll(self):
+    for i in range(9):
+      for j in range(9):
+        self.fixDomain(i,j)
   
   #Function to find the most constrained value for arc consistency
   def mostConstrainedArc(self):
@@ -265,7 +270,7 @@ class Sudoku:
       return False
     mostX, mostY = self.mostConstrained()
     queue = self.board[mostX][mostY].getDomain()
-    random.shuffle(queue)
+    #random.shuffle(queue)
     print(queue, mostX, mostY)
     if len(queue) == 0:
       print("EMPTY DOMAIN")
