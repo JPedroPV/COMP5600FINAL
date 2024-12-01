@@ -105,3 +105,4 @@ import random
 
 #Turn arcresults.txt into a histogram
 app.displayHistogram("arcresults.txt")
+#jEREMY I swear to god if you don't stop this
