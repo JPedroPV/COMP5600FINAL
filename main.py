@@ -4,24 +4,24 @@ import csv
 import random
 
 #Main
-data = []
-solution = []
-with open('sudokuMini.csv', newline='') as csvFile:
-  reader = csv.reader(csvFile)
-  next(reader)
-  count = 1
-  while count > 0:
-    chance = random.random()
-    if chance > 0.0:
-      board = next(reader)
-      data.append(board[0])
-      solution.append(board[1])
-      count -= 1
-    else:
-      next(reader)
-boards = []
-for i in range(len(data)):
-  boards.append(Sudoku(data[i], solution[i]))
+# data = []
+# solution = []
+# with open('sudoku.csv', newline='') as csvFile:
+#   reader = csv.reader(csvFile)
+#   next(reader)
+#   count = 41932
+#   while count > 0:
+#     chance = random.random()
+#     if chance > 0.0:
+#       board = next(reader)
+#       data.append(board[0])
+#       solution.append(board[1])
+#       count -= 1
+#     else:
+#       next(reader)
+# boards = []
+# for i in range(len(data)):
+#   boards.append(Sudoku(data[i], solution[i]))
 
 # #Prints all Boards and their respective Solutions
 # for i in range(len(data)):
@@ -79,13 +79,29 @@ for i in range(len(data)):
 # work = app.customBoardIn()
 
 #Test custom board input with predefined list
-before = [0,7,0,5,0,8,0,4,3,
-          0,4,0,7,0,9,0,1,8,
-          0,2,0,6,0,4,0,5,7,
-          0,9,0,3,0,2,0,8,6,
-          0,5,0,4,0,1,0,2,9,
-          0,1,0,8,0,7,0,3,4,
-          0,8,0,2,0,6,0,9,1,
-          0,6,0,1,0,3,0,7,5,
-          0,3,0,9,0,5,0,6,2]
-work = app.customBoardAll(before)
+# before = [0,7,0,5,0,8,0,4,3,
+#           0,4,0,7,0,9,0,1,8,
+#           0,2,0,6,0,4,0,5,7,
+#           0,9,0,3,0,2,0,8,6,
+#           0,5,0,4,0,1,0,2,9,
+#           0,1,0,8,0,7,0,3,4,
+#           0,8,0,2,0,6,0,9,1,
+#           0,6,0,1,0,3,0,7,5,
+#           0,3,0,9,0,5,0,6,2]
+# work = app.customBoardAll(before)
+
+#Run tests with arc consistency
+
+#Only run this if there is no arcresults.txt file
+# print("Running tests with arc consistency")
+# boardcount = 1
+# file = open("arcresults.txt", "w")
+# for i in boards:
+#   print("Running board " + str(boardcount))
+#   boardcount += 1
+#   time = i.timeArc()
+#   file.write(str(time) + "\n")
+# file.close()
+
+#Turn arcresults.txt into a histogram
+app.displayHistogram("arcresults.txt")
