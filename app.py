@@ -6,12 +6,22 @@ import random
 def customBoardIn():
     board = []
     while(len(board) != 81):
-        userIn = int(input("Give number 0-9"))
-        if userIn in range(0,10):
-            board.append(userIn)
-        else:
+        try:
+            userIn = int(input("Give number 0-9"))
+            if userIn in range(0,10):
+                board.append(userIn)
+            else:
+                print("Invalid input")
+        except ValueError:
             print("Invalid input")
-    return Sudoku(board,board)
+        # This decides whether to let the while end or reset
+        if(len(board) == 81):
+            #Check if it's a valid board with arc consistency
+            protoBoard = Sudoku(board,board)
+            if(not protoBoard.isValid()):
+                board = []
+                print("Invalid board, start over")
+    return protoBoard
 
 #Runs Sudoku given a random board from a list of boards
 def runGame(gameBoards):

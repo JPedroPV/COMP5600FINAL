@@ -92,6 +92,7 @@ for i in range(len(data)):
 # test.printCorrect()
 
 #Runs the sudoku game
-app.runGame(boards)
+#app.runGame(boards)
 
 #Test custom board input
+app.customBoardIn()

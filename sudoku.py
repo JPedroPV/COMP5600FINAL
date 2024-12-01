@@ -63,6 +63,10 @@ class Sudoku:
         if self.board[i][j].val != self.solution[i][j].val:
           return False
     return True
+  
+  #TODO implement this with arc consistency.
+  def isValid(self):
+    return True
 
   #Check if Sudoku Cell is Valid
   def checkCell(self, row, col):
