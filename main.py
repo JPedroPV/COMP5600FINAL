@@ -1,4 +1,5 @@
 from sudoku import Sudoku
+from fc_sudoku import run_foward_check
 import app
 import csv
 import random
