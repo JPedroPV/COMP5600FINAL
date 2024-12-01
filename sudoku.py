@@ -66,6 +66,31 @@ class Sudoku:
   
   #TODO implement this with arc consistency.
   def isValid(self):
+    if not self.checkArc():
+      return False
+    #Check each row
+    for i in range(9):
+      row = []
+      for j in range(9):
+        if self.board[i][j].val in row:
+          return False
+        row.append(self.board[i][j].val)
+    #Check each column
+    for i in range(9):
+      col = []
+      for j in range(9):
+        if self.board[j][i].val in col:
+          return False
+        col.append(self.board[j][i].val)
+    #Check each 3x3 subgrid
+    for i in range(3):
+      for j in range(3):
+        sub = []
+        for k in range(3):
+          for l in range(3):
+            if self.board[i*3+k][j*3+l].val in sub:
+              return False
+            sub.append(self.board[i*3+k][j*3+l].val)
     return True
 
   #Check if Sudoku Cell is Valid
@@ -194,12 +219,16 @@ class Sudoku:
     while(not self.allAssigned()):
         #find most constrained cell
         mcvI, mcvJ = self.mostConstrainedArc()
-    
+
+        #if there is no valid value for this cell
+        if len(self.board[mcvI][mcvJ].getArcDomain()) == 0:
+          return False
         #assign value to most constrained cell
         self.board[mcvI][mcvJ].setVal(self.board[mcvI][mcvJ].getArcDomain()[0])
     
         #enforce arc consistency
         self.enforceArc([(mcvI, mcvJ)])
+        return True
 
   #Times arc consistency
   def timeArc(self):
