@@ -31,7 +31,7 @@ def displayHistogram(file):
         data = f.read()
     data = data.split("\n")
     nums = [int(i) for i in data]
-    plt.hist(nums, bins = 10)
+    plt.hist(nums, bins = 100)
     plt.title("Distribution of values")
     plt.xlabel("Value")
     plt.ylabel("Frequency")

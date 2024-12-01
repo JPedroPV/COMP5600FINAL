@@ -5,24 +5,24 @@ import csv
 import random
 
 #Main
-# data = []
-# solution = []
-# with open('sudoku.csv', newline='') as csvFile:
-#   reader = csv.reader(csvFile)
-#   next(reader)
-#   count = 41932
-#   while count > 0:
-#     chance = random.random()
-#     if chance > 0.0:
-#       board = next(reader)
-#       data.append(board[0])
-#       solution.append(board[1])
-#       count -= 1
-#     else:
-#       next(reader)
-# boards = []
-# for i in range(len(data)):
-#   boards.append(Sudoku(data[i], solution[i]))
+data = []
+solution = []
+with open('sudoku.csv', newline='') as csvFile:
+  reader = csv.reader(csvFile)
+  next(reader)
+  count = 1
+  while count > 0.98: #For randomness
+    chance = random.random()
+    if chance > 0.0:
+      board = next(reader)
+      data.append(board[0])
+      solution.append(board[1])
+      count -= 1
+    else:
+      next(reader)
+boards = []
+for i in range(len(data)):
+  boards.append(Sudoku(data[i], solution[i]))
 
 # #Prints all Boards and their respective Solutions
 # for i in range(len(data)):
@@ -61,16 +61,16 @@ import random
 
 # #Testing MCV with a predefined valid board to see how time scales
 # #with the number of missing initial values
-before = [6,7,9,5,1,8,2,4,3,
-          5,4,3,7,2,9,6,1,8,
-          8,2,1,6,3,4,9,5,7,
-          7,9,4,3,5,2,1,8,6,
-          3,5,8,4,6,1,7,2,9,
-          2,1,6,8,9,7,5,3,4,
-          4,8,5,2,7,6,3,9,1,
-          9,6,2,1,8,3,4,7,5,
-          1,3,7,9,4,5,8,6,2]
-app.testMCV(before)
+# before = [6,7,9,5,1,8,2,4,3,
+#           5,4,3,7,2,9,6,1,8,
+#           8,2,1,6,3,4,9,5,7,
+#           7,9,4,3,5,2,1,8,6,
+#           3,5,8,4,6,1,7,2,9,
+#           2,1,6,8,9,7,5,3,4,
+#           4,8,5,2,7,6,3,9,1,
+#           9,6,2,1,8,3,4,7,5,
+#           1,3,7,9,4,5,8,6,2]
+# app.testMCV(before)
 
 # #Runs the sudoku game
 # app.runGame(boards)
