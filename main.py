@@ -5,24 +5,24 @@ import csv
 import random
 
 #Main
-data = []
-solution = []
-with open('sudoku.csv', newline='') as csvFile:
-  reader = csv.reader(csvFile)
-  next(reader)
-  count = 1
-  while count > 0.98: #For randomness
-    chance = random.random()
-    if chance > 0.0:
-      board = next(reader)
-      data.append(board[0])
-      solution.append(board[1])
-      count -= 1
-    else:
-      next(reader)
-boards = []
-for i in range(len(data)):
-  boards.append(Sudoku(data[i], solution[i]))
+# data = []
+# solution = []
+# with open('sudoku.csv', newline='') as csvFile:
+#   reader = csv.reader(csvFile)
+#   next(reader)
+#   count = 1
+#   while count > 0.98: #For randomness
+#     chance = random.random()
+#     if chance > 0.0:
+#       board = next(reader)
+#       data.append(board[0])
+#       solution.append(board[1])
+#       count -= 1
+#     else:
+#       next(reader)
+# boards = []
+# for i in range(len(data)):
+#   boards.append(Sudoku(data[i], solution[i]))
 
 # #Prints all Boards and their respective Solutions
 # for i in range(len(data)):
@@ -92,7 +92,7 @@ for i in range(len(data)):
 
 #Run tests with arc consistency
 
-#Only run this if there is no arcresults.txt file
+# #Only run this if there is no arcresults.txt file
 # print("Running tests with arc consistency")
 # boardcount = 1
 # file = open("arcresults.txt", "w")
