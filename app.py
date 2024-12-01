@@ -1,6 +1,23 @@
 from sudoku import Sudoku
 import random
 
+
+#Tests the runtime of MCV as values increase
+def testMCV(boardIn):
+    times = []
+    original = boardIn.copy()
+    for j in range(20):
+        cop = original.copy()
+        for i in range(j):
+            cop[i] = 0
+        su = Sudoku(cop,original)
+        t = su.timeMCV()
+        times.append(t)
+    for i in range(len(times)):
+        print("Removed " + str(i+1) + " numbers, time is: " + str(times[i]))
+
+
+
 #Creates a custom board from user input and checks if
 #there is a viable solution using arc consistency
 def customBoardIn():
@@ -22,6 +39,13 @@ def customBoardIn():
                 board = []
                 print("Invalid board, start over")
     return protoBoard
+
+def customBoardAll(userIn):
+    if len(userIn) == 81:
+        board = Sudoku(userIn,userIn)
+    else:
+        print("Invalid Length")
+    board.checkArc()
 
 #Runs Sudoku given a random board from a list of boards
 def runGame(gameBoards):

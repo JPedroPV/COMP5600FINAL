@@ -64,7 +64,7 @@ class Sudoku:
           return False
     return True
   
-  #Returns a boolean if the board is valid
+  #Checks if a custom board is valid
   def isValid(self):
     temp = self.board
     if not self.checkArc():
