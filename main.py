@@ -70,14 +70,22 @@ for i in range(len(data)):
 #           4,8,5,2,7,6,3,9,1,
 #           9,6,2,1,8,3,4,7,5,
 #           1,3,7,9,4,5,8,6,2]
-
 # app.testMCV(before)
 
-#Runs the sudoku game
-app.runGame(boards)
+# #Runs the sudoku game
+# app.runGame(boards)
 
 # #Test custom board input
-# app.customBoardIn()
+# work = app.customBoardIn()
 
 #Test custom board input with predefined list
-#app.customBoardAll(before)
+before = [0,7,0,5,0,8,0,4,3,
+          0,4,0,7,0,9,0,1,8,
+          0,2,0,6,0,4,0,5,7,
+          0,9,0,3,0,2,0,8,6,
+          0,5,0,4,0,1,0,2,9,
+          0,1,0,8,0,7,0,3,4,
+          0,8,0,2,0,6,0,9,1,
+          0,6,0,1,0,3,0,7,5,
+          0,3,0,9,0,5,0,6,2]
+work = app.customBoardAll(before)

@@ -4,8 +4,8 @@ import time
 import random
 
 class Sudoku:
-  board: np.ndarray
-  solution: np.ndarray
+  board: np.ndarray #Current Board
+  solution: np.ndarray #Solution to Board
 
   #Inititalize Sudoku Board Object
   def __init__(self, initBoard, solved):
@@ -175,6 +175,7 @@ class Sudoku:
             if (row//3)*3+i != row and (col//3)*3+j != col and not self.board[(row//3)*3+i][(col//3)*3+j].assigned:
                 self.fixDomain((row//3)*3+i, (col//3)*3+j)
 
+  #Fix the domain of every cell on the board
   def fixAll(self):
     for i in range(9):
       for j in range(9):
