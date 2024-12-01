@@ -1,4 +1,6 @@
 import random 
+from cell import Cell
+from sudoku import Sudoku
 
 class Var:
     def __init__(self, domain):
@@ -11,6 +13,7 @@ class Var:
         self.assignment = domain[0] # Integer assignment
         self.domain = domain if domain is not None else []
         self.already_chosen = []
+        self.assigned = False
 
     def assign(self):
         assignment_not_found = True
@@ -23,6 +26,7 @@ class Var:
             if curr_number not in self.already_chosen: 
                 self.already_chosen.append(curr_number)
                 self.assignment = curr_number
+                self.assigned = True
                 assignment_not_found = False
                 print("Assignment is: ", self.assignment)
 
@@ -42,21 +46,32 @@ x1.assign()
 x1.assign()
 x1.assign()
 
-def get_sudoku_cells(v: Var):
-    print("HELLO")
+def preprcess_cells(variables):
+    #Here we want every neighbor to be fixed
+    print("Hello")
+        
+def get_sudoku_cells(v: Cell):
+    print("hell")
 
-def solution_exsists(main_var):
-    if len(main_var.domain) == 0:
+def solution_exsists(main_var: Cell, already_tried: list):
+    if len(main_var.domain) == len(already_tried):
         return False
     
 def constrain(remove_element, domain2: list):
     if remove_element in domain2: 
         domain2.remove(remove_element)
 
+        if len(domain2) == 0: 
+            return False
+        else:
+            return True
 
-def check_constraints(v1: Var, v2_list: list): 
+def check_constraints(v1: Cell, v2_list: list): 
     for v2 in v2_list:
-        constrain(v1.assignment, v2.domain)
+        some_bool = constrain(v1.assignment, v2.domain)
+        
+        if (some_bool == False):
+            return False
 
 def foward_checking(variables): 
     i = 0
@@ -70,12 +85,11 @@ def foward_checking(variables):
         curr_var.assign() 
         if (check_constraints(curr_var, var_list)): 
             i+=1
-        else: 
-            if curr_var == main_var:
+        else:
+            #Call fixNeighbors
+            if (curr_var == main_var):
                 already_tried.append(curr_var.assignment)
 
-
-
-
-
-  
+def run_foward_check(sudoku_game: Sudoku):
+    main_board = sudoku_game.return_board()
+    main_board.fixAll

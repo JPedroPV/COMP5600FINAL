@@ -32,6 +32,10 @@ class Sudoku:
       print()
     print()
 
+  #retuns the board 
+  def return_board(self):
+    return self.board
+  
   #Print Sudoku Solution
   def printSolution(self):
     for i in range(9):
@@ -135,6 +139,22 @@ class Sudoku:
           return False
     return True
 
+  def getNeighbors(self, row, col):
+    neighbors = []
+    for i in range(9):
+        if i != col and not self.board[row][i].assigned:
+            neighbors.append(self.board[row][col])
+            # self.fixDomain(row, i)
+        if i != row and not self.board[i][col].assigned:
+            neighbors.append(self.board[row][col])
+            # self.fixDomain(i, col)
+    for i in range(3):
+        for j in range(3):
+            if (row//3)*3+i != row and (col//3)*3+j != col and not self.board[(row//3)*3+i][(col//3)*3+j].assigned:
+                neighbors.append(self.board[(row//3)*3+i][(col//3)*3+j])
+                # self.fixDomain((row//3)*3+i, (col//3)*3+j)
+    return neighbors
+  
   #Fixes the domain of a cell by checking what possible values can be in the domain
   def fixDomain(self, row, col):
     possible = []
@@ -195,6 +215,14 @@ class Sudoku:
         if not self.board[i][j].assigned:
           return False
     return True
+  
+  def get_all_unassigned(self):
+      all_unassigned = []
+      for i in range(9):
+        for j in range(9):
+          if not self.board[i][j].assigned:
+            all_unassigned.append(self.board[i][j])
+      return all_unassigned
   
   #Enforces arc consistency given a queue
   def enforceArc(self, queue):

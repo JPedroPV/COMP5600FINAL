@@ -1,16 +1,27 @@
+import random
+
 class Cell:
   val: int #Actual Value assigned in cell
   domain: list #List of possible values that can be in the cell if not assigned
   arcDomain: list #List of possible values, special for arc consistency
   assigned: bool #Checks if a cell is assigned a value
 
+  already_chosen: list #Checks if the element in the domain has already been assigned (for foward checking)
+  assignment: int #Assigns the variable or cell
+  
+
   #Initialize Cell Object
   def __init__(self, val):
     self.val = int(val)
+
     if self.val == 0:
       self.arcDomain = [1, 2, 3, 4, 5, 6, 7, 8, 9]
       self.domain = [1,2,3,4,5,6,7,8,9]
       self.assigned = False
+
+      self.already_chosen = []
+      self.assignment
+
     else:
       self.arcDomain = [self.val]
       self.domain = []
@@ -52,6 +63,27 @@ class Cell:
         removed = True
     return removed
   
+  def assign_fc(self):
+      i = 0 
+      assignment_not_found = True
+      while (assignment_not_found):
+          if not self.domain:
+              raise ValueError("Can't take from an empty domain")
+          curr_number = random.choice(self.domain)
+      
+          if curr_number not in self.already_chosen: 
+              self.already_chosen.append(curr_number)
+              self.assignment = curr_number
+              assignment_not_found = False
+              print("Assignment is: ", self.assignment)
+
+          else: 
+              assignment_not_found = True
+              i+=1
+              if (i == len(self.domain)): 
+                  print("All Variables have been assigned -- nothing assigned")
+                  return None
+            
   #String representation, returns value
   def __str__(self):
     return str(self.val)
