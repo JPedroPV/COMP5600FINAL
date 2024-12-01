@@ -17,6 +17,7 @@ class Sudoku:
     self.solution = np.reshape(solved, (9,9))
     for i in range(9):
       for j in range(9):
+        self.board[i][j].add_location(i, j)
         if not self.board[i][j].assigned:
           self.fixDomain(i,j)
 
@@ -32,6 +33,10 @@ class Sudoku:
       print()
     print()
 
+  #retuns the board 
+  def return_board(self):
+    return self.board
+  
   #Print Sudoku Solution
   def printSolution(self):
     for i in range(9):
@@ -74,6 +79,8 @@ class Sudoku:
     for i in range(9):
       row = []
       for j in range(9):
+        if self.board[i][j].val == 0:
+          continue
         if self.board[i][j].val in row:
           self.board = temp
           return False
@@ -82,6 +89,8 @@ class Sudoku:
     for i in range(9):
       col = []
       for j in range(9):
+        if self.board[j][i].val == 0:
+          continue
         if self.board[j][i].val in col:
           self.board = temp
           return False
@@ -92,6 +101,8 @@ class Sudoku:
         sub = []
         for k in range(3):
           for l in range(3):
+            if self.board[i*3+k][j*3+l].val == 0:
+              continue
             if self.board[i*3+k][j*3+l].val in sub:
               self.board = temp
               return False
@@ -135,6 +146,22 @@ class Sudoku:
           return False
     return True
 
+  def getNeighbors(self, row, col):
+    neighbors = []
+    for i in range(9):
+        if i != col and not self.board[row][i].assigned:
+            neighbors.append(self.board[row][i])
+            # self.fixDomain(row, i)
+        if i != row and not self.board[i][col].assigned:
+            neighbors.append(self.board[i][col])
+            # self.fixDomain(i, col)
+    for i in range(3):
+        for j in range(3):
+            if (row//3)*3+i != row and (col//3)*3+j != col and not self.board[(row//3)*3+i][(col//3)*3+j].assigned:
+                neighbors.append(self.board[(row//3)*3+i][(col//3)*3+j])
+                # self.fixDomain((row//3)*3+i, (col//3)*3+j)
+    return neighbors
+  
   #Fixes the domain of a cell by checking what possible values can be in the domain
   def fixDomain(self, row, col):
     possible = []
@@ -196,6 +223,14 @@ class Sudoku:
         if not self.board[i][j].assigned:
           return False
     return True
+  
+  def get_all_unassigned(self):
+      all_unassigned = []
+      for i in range(9):
+        for j in range(9):
+          if not self.board[i][j].assigned:
+            all_unassigned.append(self.board[i][j])
+      return all_unassigned
   
   #Enforces arc consistency given a queue
   def enforceArc(self, queue):

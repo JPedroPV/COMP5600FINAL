@@ -25,6 +25,19 @@ def testMCV(boardIn):
     plt.ylabel("Time (ns)")
     plt.show()
 
+#Displays a histogram for the distribution of the values in given file
+def displayHistogram(file):
+    with open(file, 'r') as f:
+        data = f.read()
+    data = data.split("\n")
+    nums = [int(i) for i in data]
+    plt.hist(nums, bins = 10)
+    plt.title("Distribution of values")
+    plt.xlabel("Value")
+    plt.ylabel("Frequency")
+    plt.show()
+
+
 #Creates a custom board from user input and checks if
 #there is a viable solution using arc consistency
 def customBoardIn():
