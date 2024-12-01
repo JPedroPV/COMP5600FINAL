@@ -1,6 +1,8 @@
 from sudoku import Sudoku
 import random
 
+#Creates a custom board from user input and checks if
+#there is a viable solution using arc consistency
 def customBoardIn():
     board = []
     while(len(board) != 81):
@@ -11,6 +13,7 @@ def customBoardIn():
             print("Invalid input")
     return Sudoku(board,board)
 
+#Runs Sudoku given a random board from a list of boards
 def runGame(gameBoards):
     print("Getting random board")
     num = random.randint(0,len(gameBoards) - 1)
@@ -19,14 +22,14 @@ def runGame(gameBoards):
     play.printBoard()
     finished = False
     while not finished:
-        inR, inC, inV = -1
+        inR, inC, inV = -1,-1,-1
         while inR not in range(1,10):
-            inR = int(input("Give input for <row>"))
+            inR = int(input("Give input for <row> "))
         while inC not in range(1,10):
-            inC = int(input("Give input for <column>"))
-        while inV not in range(1,10):
-            inV = int(input("Give input for <value>"))
-        play[inR][inC].setVal(inV)
+            inC = int(input("Give input for <column> "))
+        while inV not in range(0,10):
+            inV = int(input("Give input for <value> "))
+        play.board[inR - 1][inC - 1].setVal(inV)
         play.printBoard()
         if play.checkCorrect():
             print("Congratulations")
@@ -43,3 +46,6 @@ def runGame(gameBoards):
                 finished = True
                 print("Solution is:")
                 play.printSolution()
+            else:
+                print("Invalid input, Try again.")
+        print()

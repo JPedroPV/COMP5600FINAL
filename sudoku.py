@@ -43,18 +43,20 @@ class Sudoku:
         print(self.solution[i][j], end=" ")
       print()
 
+  #Prints what cells are incorrect, if none are tells the user that the board is correct
   def printCorrect(self):
     correct = True
     for i in range(9):
       for j in range(9):
-        if self.board[i][j].val != self.solution[i][j].val:
-          print("Incorrect Cell: ", i, j)
+        if self.board[i][j].val != self.solution[i][j].val and self.board[i][j].val != 0:
+          print("Incorrect Cell: ", i + 1, j + 1)
           correct = False
     if correct:
         print("Correct Solution")
     else:
         print("Incorrect Solution <------------------------------------")
   
+  #Returns True if the board is correct
   def checkCorrect(self):
     for i in range(9):
       for j in range(9):
@@ -98,7 +100,7 @@ class Sudoku:
           return False
     return True
 
-  #Fixes the domain of a cell
+  #Fixes the domain of a cell by checking what possible values can be in the domain
   def fixDomain(self, row, col):
     possible = []
     for i in range(1, 10):
@@ -106,7 +108,7 @@ class Sudoku:
         possible.append(i)
     self.board[row][col].domain = possible
 
-    #Fix neighbors of specified cell
+  #Fix the specified cell's neighbor's domains
   def fixNeighbors(self, row, col):
     for i in range(9):
         if i != col and not self.board[row][i].assigned:
@@ -118,7 +120,7 @@ class Sudoku:
             if (row//3)*3+i != row and (col//3)*3+j != col and not self.board[(row//3)*3+i][(col//3)*3+j].assigned:
                 self.fixDomain((row//3)*3+i, (col//3)*3+j)
   
-  #ARC
+  #Function to find the most constrained value for arc consistency
   def mostConstrainedArc(self):
     #find first unassigned cell
     for i in range(9):
@@ -132,6 +134,7 @@ class Sudoku:
           mostConstrained = (i, j)
     return mostConstrained
 
+  #Function to find the most constrained value
   def mostConstrained(self):
   #find first unassigned cell
     for i in range(9):
@@ -145,7 +148,7 @@ class Sudoku:
           mostConstrained = (i, j)
     return mostConstrained
   
-  #ARC
+  #Checks if all values on the board are assigned
   def allAssigned(self):
     for i in range(9):
       for j in range(9):
@@ -153,7 +156,7 @@ class Sudoku:
           return False
     return True
   
-  #ARC
+  #Enforces arc consistency given a queue
   def enforceArc(self, queue):
     while len(queue) > 0:
       row, col = queue.pop(0)
@@ -173,10 +176,8 @@ class Sudoku:
               if len(self.board[(row//3)*3+i][(col//3)*3+j].getArcDomain()) == 1:
                 queue.append(((row//3)*3+i, (col//3)*3+j))
 
-  #ARC MASTER
+  #Check for arc consistency
   def checkArc(self):
-    start = time.time()
-
     # Initial enforce arc consistency
     queue = []
     for i in range(9):
@@ -196,19 +197,28 @@ class Sudoku:
         #enforce arc consistency
         self.enforceArc([(mcvI, mcvJ)])
 
-    end = time.time()
-    print("Time taken:", end-start)
+  #Times arc consistency
+  def timeArc(self):
+    start = time.time_ns()
+    self.checkArc()
+    end = time.time_ns()
+    t = end - start
+    print("Time taken (ns):", t)
+    return t
 
+  #Check for forward checking
   def checkForward():
     start = time.time()
     end = time.time()
     print("Time taken:", end-start)
 
+  #Check for min conflicts
   def checkMinCon():
     start = time.time()
     end = time.time()
     print("Time taken:", end-start)
 
+  #Check for most constrained variable
   def checkMCV(self):
     if self.allAssigned():
       if self.checkCorrect():
@@ -238,8 +248,11 @@ class Sudoku:
         print("RECURSIVE FALSE")
     return False
   
+  #Times most constrained variable
   def timeMCV(self):
-    start = time.time()
+    start = time.time_ns()
     self.checkMCV()
-    end = time.time()
-    print("Time taken:", end-start)
+    end = time.time_ns()
+    t = end - start
+    print("Time taken (ns):", t)
+    return t

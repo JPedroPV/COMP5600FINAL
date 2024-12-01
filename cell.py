@@ -1,8 +1,8 @@
 class Cell:
-  val: int
-  domain: list
-  arcDomain: list
-  assigned: bool
+  val: int #Actual Value assigned in cell
+  domain: list #List of possible values that can be in the cell if not assigned
+  arcDomain: list #List of possible values, special for arc consistency
+  assigned: bool #Checks if a cell is assigned a value
 
   #Initialize Cell Object
   def __init__(self, val):
@@ -20,10 +20,11 @@ class Cell:
   def getVal(self):
     return self.val
   
-  #Get Cell Domain
+  #Get Cell Domain for arc consistency
   def getArcDomain(self):
     return self.arcDomain
   
+  #Get Cell Domain
   def getDomain(self):
     return self.domain
   
@@ -41,10 +42,6 @@ class Cell:
     self.domain = [1,2,3,4,5,6,7,8,9]
     self.assigned = False
 
-  def removeDomain(self, val):
-    if not self.assigned and val in self.domain:
-      self.domain.remove(val)
-
   #Enforce Arc Consistency
   #Returns True if a value is removed from the domain
   def enforceArc(self, cell):
@@ -55,5 +52,6 @@ class Cell:
         removed = True
     return removed
   
+  #String representation, returns value
   def __str__(self):
     return str(self.val)

@@ -45,18 +45,18 @@ for i in range(len(data)):
 #   i.printCorrect()
 #   print()
 
-#Check MCV
-for i in boards:
-  print("Before MCV")
-  i.printBoard()
-  i.timeMCV()
-  print("After MCV")
-  i.printBoard()
-  print("Solution")
-  i.printSolution()
-  print("Is it correct?")
-  i.printCorrect()
-  print()
+# #Check MCV
+# for i in boards:
+#   print("Before MCV")
+#   i.printBoard()
+#   i.timeMCV()
+#   print("After MCV")
+#   i.printBoard()
+#   print("Solution")
+#   i.printSolution()
+#   print("Is it correct?")
+#   i.printCorrect()
+#   print()
 
 
 # #Testing MCV on custom set to confirm it works as intended on a board with
@@ -82,7 +82,6 @@ for i in boards:
 #           1,3,7,9,4,5,8,6,2]
 
 # test = Sudoku(before,afterr)
-
 # print("Before")
 # test.printBoard()
 # print("MCV")
@@ -91,3 +90,6 @@ for i in boards:
 # test.printBoard()
 # print("Solution")
 # test.printCorrect()
+
+#Runs the sudoku game
+app.runGame(boards)
