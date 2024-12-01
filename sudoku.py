@@ -74,6 +74,8 @@ class Sudoku:
     for i in range(9):
       row = []
       for j in range(9):
+        if self.board[i][j].val == 0:
+          continue
         if self.board[i][j].val in row:
           self.board = temp
           return False
@@ -82,6 +84,8 @@ class Sudoku:
     for i in range(9):
       col = []
       for j in range(9):
+        if self.board[j][i].val == 0:
+          continue
         if self.board[j][i].val in col:
           self.board = temp
           return False
@@ -92,6 +96,8 @@ class Sudoku:
         sub = []
         for k in range(3):
           for l in range(3):
+            if self.board[i*3+k][j*3+l].val == 0:
+              continue
             if self.board[i*3+k][j*3+l].val in sub:
               self.board = temp
               return False
