@@ -38,14 +38,21 @@ def customBoardIn():
             if(not protoBoard.isValid()):
                 board = []
                 print("Invalid board, start over")
-    return protoBoard
+    protoBoard.checkArc()
+    return Sudoku(board, protoBoard.get1DBoard())
 
+#Returns None if the board is invalid
 def customBoardAll(userIn):
+    protoBoard = None
     if len(userIn) == 81:
-        board = Sudoku(userIn,userIn)
+        protoBoard = Sudoku(userIn,userIn)
+        if(not protoBoard.isValid()):
+            print("Invalid board")
+            raise ValueError("Invalid board")
     else:
-        print("Invalid Length")
-    board.checkArc()
+        raise ValueError("Invalid length")
+    protoBoard.checkArc()
+    return Sudoku(userIn, protoBoard.get1DBoard())
 
 #Runs Sudoku given a random board from a list of boards
 def runGame(gameBoards):

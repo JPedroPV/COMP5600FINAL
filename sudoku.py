@@ -295,3 +295,10 @@ class Sudoku:
     t = end - start
     print("Time taken (ns):", t)
     return t
+
+  def get1DBoard(self):
+    board = []
+    for i in range(9):
+      for j in range(9):
+        board.append(self.board[i][j].val)
+    return board
