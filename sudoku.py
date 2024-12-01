@@ -66,13 +66,16 @@ class Sudoku:
   
   #Checks if a custom board is valid
   def isValid(self):
+    temp = self.board
     if not self.checkArc():
+      self.board = temp
       return False
     #Check each row
     for i in range(9):
       row = []
       for j in range(9):
         if self.board[i][j].val in row:
+          self.board = temp
           return False
         row.append(self.board[i][j].val)
     #Check each column
@@ -80,6 +83,7 @@ class Sudoku:
       col = []
       for j in range(9):
         if self.board[j][i].val in col:
+          self.board = temp
           return False
         col.append(self.board[j][i].val)
     #Check each 3x3 subgrid
@@ -89,8 +93,10 @@ class Sudoku:
         for k in range(3):
           for l in range(3):
             if self.board[i*3+k][j*3+l].val in sub:
+              self.board = temp
               return False
             sub.append(self.board[i*3+k][j*3+l].val)
+    self.board = temp
     return True
 
   #Check if Sudoku Cell is Valid
@@ -289,3 +295,10 @@ class Sudoku:
     t = end - start
     print("Time taken (ns):", t)
     return t
+
+  def get1DBoard(self):
+    board = []
+    for i in range(9):
+      for j in range(9):
+        board.append(self.board[i][j].val)
+    return board

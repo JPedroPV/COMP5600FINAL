@@ -81,7 +81,7 @@ afterr = [6,7,9,5,1,8,2,4,3,
           9,6,2,1,8,3,4,7,5,
           1,3,7,9,4,5,8,6,2]
 
-app.testMCV(before)
+#app.testMCV(before)
 
 # test = Sudoku(before,afterr)
 # print("Before")
