@@ -4,7 +4,7 @@ import app
 import csv
 import random
 
-# #Main
+#Main
 data = []
 solution = []
 with open('sudokuMini.csv', newline='') as csvFile:
@@ -59,19 +59,18 @@ for i in range(len(data)):
 #   i.printCorrect()
 #   print()
 
-
 # #Testing MCV with a predefined valid board to see how time scales
 # #with the number of missing initial values
-# before = [6,7,9,5,1,8,2,4,3,
-#           5,4,3,7,2,9,6,1,8,
-#           8,2,1,6,3,4,9,5,7,
-#           7,9,4,3,5,2,1,8,6,
-#           3,5,8,4,6,1,7,2,9,
-#           2,1,6,8,9,7,5,3,4,
-#           4,8,5,2,7,6,3,9,1,
-#           9,6,2,1,8,3,4,7,5,
-#           1,3,7,9,4,5,8,6,2]
-# app.testMCV(before)
+before = [6,7,9,5,1,8,2,4,3,
+          5,4,3,7,2,9,6,1,8,
+          8,2,1,6,3,4,9,5,7,
+          7,9,4,3,5,2,1,8,6,
+          3,5,8,4,6,1,7,2,9,
+          2,1,6,8,9,7,5,3,4,
+          4,8,5,2,7,6,3,9,1,
+          9,6,2,1,8,3,4,7,5,
+          1,3,7,9,4,5,8,6,2]
+app.testMCV(before)
 
 # #Runs the sudoku game
 # app.runGame(boards)
@@ -92,7 +91,6 @@ for i in range(len(data)):
 # work = app.customBoardAll(before)
 
 #Run tests with arc consistency
-
 # #Only run this if there is no arcresults.txt file
 # print("Running tests with arc consistency")
 # boardcount = 1
@@ -106,7 +104,6 @@ for i in range(len(data)):
 
 #Turn arcresults.txt into a histogram
 #app.displayHistogram("arcresults.txt")
-#jEREMY I swear to god if you don't stop this
 
 #Run the main application
 print("Welcome to Supreme Sudoku Solver 0.9!\nTo begin, enter 1 to create a custom sudoku board, 2 to solve a random board, 3 to run arc consistency and forward checking tests, or 4 to run the MCV test.")

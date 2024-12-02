@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 def testMCV(boardIn):
     times = []
     original = boardIn.copy()
-    for j in range(23):
+    for j in range(24):
         cop = original.copy()
         for i in range(j):
             cop[i] = 0
@@ -32,13 +32,11 @@ def displayHistogram(file):
     data = data.split("\n")
     #remove empty entries
     data = [i for i in data if i]
-    #convert to ints
-    nums = [int(i) for i in data]
-    #create histogram
+    nums = [(int(i) / 10**9) for i in data]
     plt.hist(nums, bins = 100, log = True)
-    plt.title("Distribution of values for " + file)
-    plt.xlabel("Value")
-    plt.ylabel("Frequency")
+    plt.title("Distribution of values")
+    plt.xlabel("Solving time (s)")
+    plt.ylabel("Number of Occurences")
     plt.show()
 
 #Creates a custom board from user input and checks if
