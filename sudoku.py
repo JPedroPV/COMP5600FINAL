@@ -50,16 +50,16 @@ class Sudoku:
 
   #Prints what cells are incorrect, if none are tells the user that the board is correct
   def printCorrect(self):
-    correct = True
+    incorrect = 0
     for i in range(9):
       for j in range(9):
         if self.board[i][j].val != self.solution[i][j].val and self.board[i][j].val != 0:
           print("Incorrect Cell: ", i + 1, j + 1)
-          correct = False
-    if correct:
+          incorrect += 1
+    if incorrect == 0:
         print("Correct Solution")
     else:
-        print("Incorrect Solution <------------------------------------")
+        print("Incorrect Solution <------------------------------------" + str(incorrect) + " cells are incorrect")
   
   #Returns True if the board is correct
   def checkCorrect(self):

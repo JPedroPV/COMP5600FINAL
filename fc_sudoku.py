@@ -85,8 +85,8 @@ def foward_checking(variables: list, soduku_game: Sudoku):
         
         curr_var = variables[i]
 
-        if (curr_var.location == (1,0)):
-            print("Wait")
+        #if (curr_var.location == (1,0)):
+            #print("Wait")
 
         var_list = get_related_cells(curr_var, soduku_game)
         backtrack_signal = curr_var.assign_fc()
@@ -95,7 +95,7 @@ def foward_checking(variables: list, soduku_game: Sudoku):
             i+=1
             
             if i == len(variables):
-                print("Were Done -- finished Board")
+                #print("Were Done -- finished Board")
                 # soduku_game.printBoard()
                 break
         else:
@@ -130,11 +130,11 @@ def get_test_boards(file_in):
 
 def run_foward_check(soduku_game: Sudoku):
     soduku_game.fixAll()
-    soduku_game.printBoard()
+    #soduku_game.printBoard()
 
     variables = soduku_game.get_all_unassigned()  
     foward_checking(variables, soduku_game)
-    soduku_game.printBoard()
+    #soduku_game.printBoard()
         
 file = "sudokuMini.csv"
 boards = get_test_boards(file)

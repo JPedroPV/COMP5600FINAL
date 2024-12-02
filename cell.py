@@ -94,7 +94,7 @@ class Cell:
               assignment_not_found = False
               self.assigned = True
               self.val = curr_number
-              print(rf"Assignment is {self.assignment} and the current cell is at row: {self.location[0]} and col: {self.location[1]}")
+              #print(rf"Assignment is {self.assignment} and the current cell is at row: {self.location[0]} and col: {self.location[1]}")
               backtrack_signal = False
               return backtrack_signal
               
@@ -105,7 +105,7 @@ class Cell:
             
               i+=1
               if (i == len(self.domain)): 
-                  print(rf"All Variables have been assigned for cell at row: {self.location[0]} and col: {self.location[1]} nothing assigned: ", self.print_location())
+                  #print(rf"All Variables have been assigned for cell at row: {self.location[0]} and col: {self.location[1]} nothing assigned: ", self.print_location())
                   backtrack_signal = True
                   return backtrack_signal
     
