@@ -30,6 +30,8 @@ def displayHistogram(file):
     with open(file, 'r') as f:
         data = f.read()
     data = data.split("\n")
+    #remove empty entries
+    data = [i for i in data if i]
     nums = [int(i) for i in data]
     plt.hist(nums, bins = 100, log = True)
     plt.title("Distribution of values")

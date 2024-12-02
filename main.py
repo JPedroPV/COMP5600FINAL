@@ -1,28 +1,28 @@
 from sudoku import Sudoku
-from fc_sudoku import run_foward_check
+# from fc_sudoku import run_foward_check
 import app
 import csv
 import random
 
 # #Main
-# data = []
-# solution = []
-# with open('sudoku.csv', newline='') as csvFile:
-#   reader = csv.reader(csvFile)
-#   next(reader)
-#   count = 49151
-#   while count > 0:
-#     chance = random.random()
-#     if chance > 0.0:
-#       board = next(reader)
-#       data.append(board[0])
-#       solution.append(board[1])
-#       count -= 1
-#     else:
-#       next(reader)
-# boards = []
-# for i in range(len(data)):
-#   boards.append(Sudoku(data[i], solution[i]))
+data = []
+solution = []
+with open('sudokuMini.csv', newline='') as csvFile:
+  reader = csv.reader(csvFile)
+  next(reader)
+  count = 1
+  while count > 0:
+    chance = random.random()
+    if chance > 0.0:
+      board = next(reader)
+      data.append(board[0])
+      solution.append(board[1])
+      count -= 1
+    else:
+      next(reader)
+boards = []
+for i in range(len(data)):
+  boards.append(Sudoku(data[i], solution[i]))
 
 # #Prints all Boards and their respective Solutions
 # for i in range(len(data)):
@@ -105,5 +105,73 @@ import random
 # file.close()
 
 #Turn arcresults.txt into a histogram
-app.displayHistogram("arcresults.txt")
+#app.displayHistogram("arcresults.txt")
 #jEREMY I swear to god if you don't stop this
+
+#Run the main application
+print("Welcome to Supreme Sudoku Solver 0.9!\nTo begin, enter 1 to create a custom sudoku board, 2 to solve a random board, or 3 run arc consistency and forward checking tests.")
+while True:
+  try:
+    userIn = int(input("Enter 1, 2, or 3: "))
+    if userIn in range(1,4):
+      break
+    else:
+      print("Invalid input")
+  except ValueError:
+    print("Invalid input")
+
+if userIn == 1:
+  work = app.customBoardIn()
+  work.printBoard()
+  work.checkArc()
+  work.printBoard()
+  work.printSolution()
+  work.printCorrect()
+elif userIn == 2 or userIn == 3:
+  #Collects board depending on user input
+  data = []
+  solution = []
+  with open('sudoku.csv', newline='') as csvFile:
+    reader = csv.reader(csvFile)
+    next(reader)
+    count =1 if userIn == 2 else 49151
+    while count > 0:
+      chance = random.random()
+      if chance > 0.0:
+        board = next(reader)
+        data.append(board[0])
+        solution.append(board[1])
+        count -= 1
+      else:
+        next(reader)
+  boards = []
+  boards2 = []
+  for i in range(len(data)):
+    boards.append(Sudoku(data[i], solution[i]))
+    boards2.append(Sudoku(data[i], solution[i]))
+
+  #Run the main application
+  if userIn == 2:
+    app.runGame(boards)
+  else:
+    #Run tests
+    print("Running tests with arc consistency")
+    boardcount = 1
+    file = open("arcresults.txt", "w")
+    for i in boards:
+      print("Running board " + str(boardcount))
+      boardcount += 1
+      time = i.timeArc()
+      file.write(str(time) + "\n")
+    file.close()
+    app.displayHistogram("arcresults.txt")
+    # print("Running tests with forward checking")
+    # boardcount = 1
+    # file = open("fcresults.txt", "w")
+    # for i in boards2:
+    #   print("Running board " + str(boardcount))
+    #   boardcount += 1
+    #   time = run_foward_check(i)
+    #   file.write(str(time) + "\n")
+    # file.close()
+    # app.displayHistogram("fcresults.txt")
