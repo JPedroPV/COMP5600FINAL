@@ -292,12 +292,6 @@ class Sudoku:
     end = time.time()
     print("Time taken:", end-start)
 
-  #Check for min conflicts
-  def checkMinCon():
-    start = time.time()
-    end = time.time()
-    print("Time taken:", end-start)
-
   #Check for most constrained variable
   def checkMCV(self):
     if self.allAssigned():
