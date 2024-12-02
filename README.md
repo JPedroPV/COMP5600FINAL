@@ -27,7 +27,7 @@
   ```
 
 * Functionality explained
-  This program has the ability to run 3 different programs depending on a user inputing 1, 2, 3, or 4.
+  This program has the ability to run 3 different programs depending on a user inputting 1, 2, 3, or 4.
   * (1) Will allow the user to input a 9 by 9 sudoku board, complete or incomplete, in the order of left to right, top to bottom and be told if the board is valid meaning that it is solved or can be solved.
   * (2) Allows the user to play sudoku with a board that comes with
   * (3) Will run a test evaluating runtime on 49151 boards using arc consistency and forward checking with corresponding histograms.
