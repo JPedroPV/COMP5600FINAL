@@ -4,7 +4,7 @@ import app
 import csv
 import random
 
-# #Main
+#Main
 data = []
 solution = []
 with open('sudokuMini.csv', newline='') as csvFile:

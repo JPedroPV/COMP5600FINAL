@@ -32,7 +32,7 @@ def displayHistogram(file):
     data = data.split("\n")
     #remove empty entries
     data = [i for i in data if i]
-    nums = [int(i) for i in data]
+    nums = [(int(i) / 10**9) for i in data]
     plt.hist(nums, bins = 100, log = True)
     plt.title("Distribution of values")
     plt.xlabel("Solving time (s)")
