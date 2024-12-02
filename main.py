@@ -106,11 +106,11 @@ for i in range(len(data)):
 #app.displayHistogram("arcresults.txt")
 
 #Run the main application
-print("Welcome to Supreme Sudoku Solver 0.9!\nTo begin, enter 1 to create a custom sudoku board, 2 to solve a random board, or 3 run arc consistency and forward checking tests.")
+print("Welcome to Supreme Sudoku Solver 0.9!\nTo begin, enter 1 to create a custom sudoku board, 2 to solve a random board, 3 to run arc consistency and forward checking tests, or 4 to run the MCV test.")
 while True:
   try:
-    userIn = int(input("Enter 1, 2, or 3: "))
-    if userIn in range(1,4):
+    userIn = int(input("Enter 1, 2, 3, or 4: "))
+    if userIn in range(1,5):
       break
     else:
       print("Invalid input")
@@ -172,3 +172,16 @@ elif userIn == 2 or userIn == 3:
     #   file.write(str(time) + "\n")
     # file.close()
     # app.displayHistogram("fcresults.txt")
+else:
+    #Test MCV with a predefined valid board to see how time scales
+    #with the number of missing initial values
+    before = [6,7,9,5,1,8,2,4,3,
+                5,4,3,7,2,9,6,1,8,
+                8,2,1,6,3,4,9,5,7,
+                7,9,4,3,5,2,1,8,6,
+                3,5,8,4,6,1,7,2,9,
+                2,1,6,8,9,7,5,3,4,
+                4,8,5,2,7,6,3,9,1,
+                9,6,2,1,8,3,4,7,5,
+                1,3,7,9,4,5,8,6,2]
+    app.testMCV(before)
