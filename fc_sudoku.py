@@ -3,40 +3,6 @@ from cell import Cell
 from sudoku import Sudoku
 import csv
 
-# class Var:
-#     def __init__(self, domain):
-#         """
-#         Initializes the DomainAssignment class.
-#         :param assignment: An integer value for the assignment.
-#         :param domain: A list of values representing the domain.
-#         """
-#         self.assignment = domain[0] # Integer assignment
-#         self.domain = domain if domain is not None else []
-#         self.already_chosen = []
-#         self.assigned = False
-
-#     def assign(self):
-#         assignment_not_found = True
-#         i = 0
-#         while (assignment_not_found):
-#             if not self.domain:
-#                 raise ValueError("Can't take from an empty domain")
-#             curr_number = random.choice(self.domain)
-        
-#             if curr_number not in self.already_chosen: 
-#                 self.already_chosen.append(curr_number)
-#                 self.assignment = curr_number
-#                 self.assigned = True
-#                 assignment_not_found = False
-#                 print("Assignment is: ", self.assignment)
-
-#             else: 
-#                 assignment_not_found = True
-#                 i+=1
-#                 if (i == len(self.domain)): 
-#                     print("All Variables have been assigned -- nothing assigned")
-#                     return None
-        
 def get_related_cells(v: Cell, sodoku_game: Sudoku):
     row, col = v.location[0], v.location[1]
     related_cells = sodoku_game.getNeighbors(row, col)
@@ -91,7 +57,7 @@ def foward_checking(variables: list, soduku_game: Sudoku):
         var_list = get_related_cells(curr_var, soduku_game)
         backtrack_signal = curr_var.assign_fc()
 
-        if (check_constraints(curr_var, var_list, soduku_game)): 
+        if (check_constraints(curr_var, var_list, soduku_game) and backtrack_signal == False): 
             i+=1
             
             if i == len(variables):
@@ -104,6 +70,8 @@ def foward_checking(variables: list, soduku_game: Sudoku):
                 already_tried.append(curr_var.assignment)
             
             if (backtrack_signal == True):
+                curr_var.assignment = 0
+                curr_var.already_chosen = []
                 i-=1
                 continue
 
@@ -135,6 +103,14 @@ def run_foward_check(soduku_game: Sudoku):
     variables = soduku_game.get_all_unassigned()  
     foward_checking(variables, soduku_game)
     soduku_game.printBoard()
+
+    variables2 = soduku_game.get_all_unassigned()
+    for var in variables2:
+        soduku_game.fixDomain(var.location[0], var.location[1])
+        print(var.domain, " ", var.location)
+
+    print("STOP")
+
         
 file = "sudokuMini.csv"
 boards = get_test_boards(file)

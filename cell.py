@@ -72,7 +72,7 @@ class Cell:
     self.location = (row, col)
 
   def print_location(self):
-     print("Row: ", self.location[0], " Col: ", self.location[1])
+     print(rf"{self.location}")
 
   def clear_already_chosen(self):
      self.already_chosen.clear()
@@ -102,10 +102,12 @@ class Cell:
               assignment_not_found = True
               self.assigned = False
               self.val = 0
-            
+
               i+=1
               if (i == len(self.domain)): 
                   print(rf"All Variables have been assigned for cell at row: {self.location[0]} and col: {self.location[1]} nothing assigned: ", self.print_location())
+                  # self.assignment = 0
+                  self.already_chosen = []
                   backtrack_signal = True
                   return backtrack_signal
     
