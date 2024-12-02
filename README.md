@@ -12,8 +12,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This application can be run by installing the packages with the following.
-* npm
+
+* Getting started
+  This application can be run by installing the packages with the following.
   ```sh
   pip install requirements.txt
   ```
@@ -25,10 +26,11 @@ This application can be run by installing the packages with the following.
   python3 main.py
   ```
 
-This program has the ability to run 3 different programs depending on a user inputing 1, 2, or 3, respectively.
-* (1) Will allow the user to input a 9 by 9 sudoku board, complete or incomplete, in the order of left to right, top to bottom and be told if the board is valid meaning that it is solved or can be solved.
-* (2) Allows the user to play sudoku with a board that comes with
-* (3) Will run a test evaluating runtime on 49151 boards using arc consistency and forward checking with corresponding histograms.
-* (4) Runs the MCV test suite and displays resulting graphs
+* Functionality explained
+  This program has the ability to run 3 different programs depending on a user inputing 1, 2, or 3, respectively.
+  * (1) Will allow the user to input a 9 by 9 sudoku board, complete or incomplete, in the order of left to right, top to bottom and be told if the board is valid meaning that it is solved or can be solved.
+  * (2) Allows the user to play sudoku with a board that comes with
+  * (3) Will run a test evaluating runtime on 49151 boards using arc consistency and forward checking with corresponding histograms.
+  * (4) Runs the MCV test suite and displays resulting graphs
 
-Most constrained value (MCV) was not included in the main testing suite because it is not suitable for boards missing many values as runtime gets exponentially longer
+  Most constrained value (MCV) was not included in the main testing suite because it is not suitable for boards missing many values as runtime gets exponentially longer
