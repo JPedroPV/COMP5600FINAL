@@ -289,9 +289,9 @@ class Sudoku:
   #Check for forward checking
   def checkForward(self):    
     from fc_sudoku import run_foward_check
-    start = time.time()
+    start = time.time_ns()
     run_foward_check(self)
-    end = time.time()
+    end = time.time_ns()
     print("Time taken:", end-start)
 
   #Check for most constrained variable
