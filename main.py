@@ -162,16 +162,16 @@ elif userIn == 2 or userIn == 3:
       file.write(str(time) + "\n")
     file.close()
     app.displayHistogram("arcresults.txt")
-    # print("Running tests with forward checking")
-    # boardcount = 1
-    # file = open("fcresults.txt", "w")
-    # for i in boards2:
-    #   print("Running board " + str(boardcount))
-    #   boardcount += 1
-    #   time = run_foward_check(i)
-    #   file.write(str(time) + "\n")
-    # file.close()
-    # app.displayHistogram("fcresults.txt")
+    print("Running tests with forward checking")
+    boardcount = 1
+    file = open("fcresults.txt", "w")
+    for i in boards2:
+      print("Running board " + str(boardcount))
+      boardcount += 1
+      time = i.checkForward()
+      file.write(str(time) + "\n")
+    file.close()
+    app.displayHistogram("fcresults.txt")
 else:
     #Test MCV with a predefined valid board to see how time scales
     #with the number of missing initial values

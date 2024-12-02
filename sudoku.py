@@ -1,4 +1,5 @@
 from cell import Cell
+from fc_sudoku import run_foward_check
 import numpy as np
 import time
 import random
@@ -287,8 +288,9 @@ class Sudoku:
     return t
 
   #Check for forward checking
-  def checkForward():
+  def checkForward(self):
     start = time.time()
+    run_foward_check(self)
     end = time.time()
     print("Time taken:", end-start)
 
