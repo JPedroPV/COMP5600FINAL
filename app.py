@@ -30,11 +30,11 @@ def displayHistogram(file):
     with open(file, 'r') as f:
         data = f.read()
     data = data.split("\n")
-    nums = [int(i) for i in data]
-    plt.hist(nums, bins = 10)
+    nums = [(int(i) / 10**9) for i in data] #Have to divide by 10^9 because originally we calculate in nanotime
+    plt.hist(nums, bins = 100, log=True)
     plt.title("Distribution of values")
-    plt.xlabel("Value")
-    plt.ylabel("Frequency")
+    plt.xlabel("Solving time (s)")
+    plt.ylabel("Number of Occurences")
     plt.show()
 
 #Creates a custom board from user input and checks if
