@@ -32,9 +32,11 @@ def displayHistogram(file):
     data = data.split("\n")
     #remove empty entries
     data = [i for i in data if i]
+    #convert to ints
     nums = [int(i) for i in data]
+    #create histogram
     plt.hist(nums, bins = 100, log = True)
-    plt.title("Distribution of values")
+    plt.title("Distribution of values for " + file)
     plt.xlabel("Value")
     plt.ylabel("Frequency")
     plt.show()
